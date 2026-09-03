@@ -42,9 +42,11 @@ tasks.named('jar', Jar) {
 // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-// Tread Lightly needs to read a handful of fields the game does not expose, such as
-// LivingEntity#jumping. Uncomment once the first entry is actually needed.
-//minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
+// No access transformer here on purpose. LivingEntity#jumping is read through a mixin accessor
+// instead. Both the MDK's `minecraft.accessTransformers.file` line and NeoGradle 7.1's
+// documented `accessTransformers { file ... }` block leave the joined Minecraft artifact out of
+// the compile classpath entirely, so every net.minecraft import stops resolving with no error
+// pointing at the cause. Worth retrying on a newer NeoGradle.
 
 // Tread Lightly is a client-only mod: it produces sound on the machine that renders the
 // world and has nothing to do on a dedicated server. Only a client run is configured.
@@ -108,9 +110,14 @@ tasks.withType(ProcessResources).configureEach {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
-    // Only this project's sources are compiled here, so these report our own usages rather
-    // than drowning us in warnings from Minecraft. Deprecations are worth seeing: reaching for
-    // an API the game has moved on from is usually a sign of porting from an older version.
+}
+
+// Scoped to this project's own sources rather than every JavaCompile task. Applying an access
+// transformer makes NeoGradle recompile Minecraft itself inside this build, and a blanket rule
+// would bury our handful of warnings under thousands from vanilla.
+// Deprecations are worth seeing: reaching for an API the game has moved on from is usually a
+// sign of having ported code from an older version.
+tasks.named('compileJava', JavaCompile) {
     options.compilerArgs << '-Xlint:deprecation' << '-Xlint:unchecked'
 }
 

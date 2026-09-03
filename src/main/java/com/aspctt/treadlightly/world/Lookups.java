@@ -7,10 +7,13 @@ import java.util.Map;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import com.aspctt.treadlightly.config.Variator;
 import com.aspctt.treadlightly.sound.acoustic.AcousticLibrary;
+import com.aspctt.treadlightly.sound.generator.Locomotion;
 import com.aspctt.treadlightly.world.BiomeVarianceLookup.BiomeVariance;
 
 /**
@@ -20,6 +23,8 @@ import com.aspctt.treadlightly.world.BiomeVarianceLookup.BiomeVariance;
  * while the client is mid-frame swaps one complete set for another instead of being seen
  * half-applied.
  *
+ * @param variator     stride lengths and timings the generator works from
+ * @param locomotions  which gait each entity type walks with
  * @param heuristics   name-based guesses for modded blocks nothing else matched
  * @param golems       sounds for standing on entities
  * @param globalBlocks the block map every entity uses unless overridden
@@ -29,6 +34,8 @@ import com.aspctt.treadlightly.world.BiomeVarianceLookup.BiomeVariance;
  * @param acoustics    the named acoustics all of the above resolve to
  */
 public record Lookups(
+        Variator variator,
+        Index<Entity, Locomotion> locomotions,
         HeuristicStateLookup heuristics,
         Lookup<EntityType<?>> golems,
         Lookup<BlockState> globalBlocks,
