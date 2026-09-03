@@ -108,6 +108,10 @@ tasks.withType(ProcessResources).configureEach {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    // Only this project's sources are compiled here, so these report our own usages rather
+    // than drowning us in warnings from Minecraft. Deprecations are worth seeing: reaching for
+    // an API the game has moved on from is usually a sign of porting from an older version.
+    options.compilerArgs << '-Xlint:deprecation' << '-Xlint:unchecked'
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
