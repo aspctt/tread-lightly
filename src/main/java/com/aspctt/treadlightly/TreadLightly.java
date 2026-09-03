@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 ASPCT
+// SPDX-License-Identifier: LGPL-3.0-or-later
+
 package com.aspctt.treadlightly;
 
 import org.slf4j.Logger;

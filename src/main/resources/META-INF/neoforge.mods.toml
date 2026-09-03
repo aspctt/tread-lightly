@@ -4,8 +4,9 @@ modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the FML version. This is currently 2.
 loaderVersion="${loader_version_range}" #mandatory
 
-# The license for the mod. The full terms, including the sound pack grant that lets anyone
-# create and sell packs for Tread Lightly, are in the LICENSE file in the root of the JAR.
+# The license for the mod. LICENSE and COPYING in the root of the JAR carry the full text.
+# Sound packs are unaffected by it: a resource pack is data read at runtime, not a
+# derivative work, so anyone may make and sell packs on any terms they like.
 license="${mod_license}"
 
 #issueTrackerURL="" #optional

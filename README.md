@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/badge/Available_for-1.21.1-blue)
 ![Mod Loader](https://img.shields.io/badge/Mod_Loader-NeoForge-orange)
 ![Side](https://img.shields.io/badge/Side-Client_only-yellow)
-![License](https://img.shields.io/badge/License-All_Rights_Reserved-red)
+![License](https://img.shields.io/badge/License-LGPL_v3_or_later-blue)
 
 > **Status: in development.** The project skeleton is in place. The sound engine is not.
 
@@ -30,15 +30,14 @@ Sound packs are ordinary resource packs. Put them in `resourcepacks/` and enable
 
 ## Licensing
 
-Tread Lightly is **All Rights Reserved**. The full terms are in [LICENSE](./LICENSE). The short version:
+Tread Lightly is licensed under the **GNU Lesser General Public License, version 3 or later**. The full terms are in [LICENSE](./LICENSE), which incorporates [COPYING](./COPYING) by reference. What that means in practice:
 
-* You may download it and play with it.
-* **Sound packs are yours.** You may create them for any purpose including commercial ones, distribute and sell them on any terms you choose, and use the pack formats, schemas, field names, directory layouts, and sound vocabularies to do it. You may start from the block map the mod ships and edit it, and you may override the mod's own resources from inside a pack. The project claims no ownership over your work, requires no attribution, and this grant is irrevocable: it cannot be withdrawn from packs already published, and it survives any future change to the licence.
-* Separate mods, tools, editors, and validators that interoperate through the public API or pack formats are equally permitted.
-* Modpacks may include the mod **by reference**, the way a CurseForge manifest or a Modrinth index does, so the launcher fetches it from an official page. Re-hosting, bundling, or altering the JAR is not permitted.
-* The mod's own source code and assets stay reserved. Material that comes from elsewhere, including the Presence Footsteps code and sounds this mod is built from, stays under its own licence and is unaffected by that. See [NOTICE](./NOTICE).
+* You may use, study, modify, and redistribute it, including commercially.
+* **Sound packs are yours.** A resource pack is data the mod reads at runtime, not a derivative work, so packs carry no obligations whatsoever. Make them for any purpose, sell them on any terms you choose, start from the block map the mod ships, and override the mod's own resources freely. No permission needed and no attribution required.
+* **Other mods and tools may depend on Tread Lightly under any licence**, including proprietary and All Rights Reserved ones. That is what the "Lesser" buys, and it is deliberate: modded block support should not require anyone to change their own licence.
+* If you modify Tread Lightly itself and distribute the result, that modified version must also be LGPL v3 or later, with source available.
 
-Please note the copyrights and trademarks in [NOTICE](./NOTICE).
+Tread Lightly began as a port of [Presence Footsteps](https://github.com/Sollace/Presence-Footsteps), used under the MIT licence it carried at the time. The attribution MIT requires, along with copyrights and trademarks, is in [NOTICE](./NOTICE).
 
 ## Documentation
 
@@ -53,6 +52,6 @@ Please note the copyrights and trademarks in [NOTICE](./NOTICE).
 ### Built on
 
 * [NeoForge](https://neoforged.net/) - mod loader
-* [Presence Footsteps](https://github.com/Sollace/Presence-Footsteps) by Hurricaaane (Ha3) and Sollace - the mod this one derives from, MIT
+* [Presence Footsteps](https://github.com/Sollace/Presence-Footsteps) by Hurricaaane (Ha3) and Sollace - the mod this one grew out of, MIT
 
-Tread Lightly is a NeoForge port and simplification of Presence Footsteps, built from the Minecraft 1.21.1 line of that project as it stood in November 2025, under the MIT License it carried at the time. Presence Footsteps has since moved to PolyForm Shield 1.0.0 for the versions released after June 2026; nothing from those is used here. The full attribution is in [NOTICE](./NOTICE).
+Tread Lightly began as a port of Presence Footsteps and is diverging into its own mod. It is built from the Minecraft 1.21.1 line of that project as it stood in November 2025, under the MIT License it carried at the time. Presence Footsteps has since moved to PolyForm Shield 1.0.0 for versions released after June 2026, and nothing from those is used here. The full attribution is in [NOTICE](./NOTICE).

@@ -50,7 +50,7 @@ hs_err_pid*.log
 # These hold third-party mod binaries and source checkouts, kept locally so the
 # build can compile against them and development runs can load them. They are
 # other people's work under other people's licences, several of which forbid
-# redistribution. This mod is All Rights Reserved and ships none of them.
+# redistribution. This mod ships none of them.
 #
 # Remove an entry only if you deliberately intend to publish it. See NOTICE.
 ###############################################################################
