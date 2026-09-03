@@ -1,0 +1,58 @@
+###############################################################################
+# Tread Lightly - .gitignore for a Java / NeoForge Minecraft mod
+###############################################################################
+
+## Gradle build output
+build/
+.gradle/
+gradletasknamecache
+gradle-app.setting
+
+# gradle/wrapper/gradle-wrapper.jar is intentionally TRACKED. It is what lets a
+# fresh clone run ./gradlew without Gradle installed, so never add a blanket
+# *.jar rule here.
+
+## IDE / editor cruft
+.idea/
+.vscode/
+.vs/
+out/
+*.iml
+*.ipr
+*.iws
+.settings/
+.metadata/
+.classpath
+.project
+bin/
+eclipse/
+*.launch
+
+## OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+## Development runtime
+# Produced by launching the game: worlds, logs, crash reports, and options. A world
+# save in particular would be both large and meaningless to anyone else.
+run/
+runs/
+
+## Crash artefacts, wherever they land
+crash-reports/
+*.hprof
+hs_err_pid*.log
+
+###############################################################################
+# Local-only reference material. NOT for publication.
+#
+# These hold third-party mod binaries and source checkouts, kept locally so the
+# build can compile against them and development runs can load them. They are
+# other people's work under other people's licences, several of which forbid
+# redistribution. This mod is All Rights Reserved and ships none of them.
+#
+# Remove an entry only if you deliberately intend to publish it. See NOTICE.
+###############################################################################
+external-files/
+NOTES.md

@@ -1,0 +1,51 @@
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml" #mandatory
+
+# A version range to match for said mod loader - for regular FML @Mod it will be the FML version. This is currently 2.
+loaderVersion="${loader_version_range}" #mandatory
+
+# The license for the mod. The full terms, including the sound pack grant that lets anyone
+# create and sell packs for Tread Lightly, are in the LICENSE file in the root of the JAR.
+license="${mod_license}"
+
+#issueTrackerURL="" #optional
+
+[[mods]] #mandatory
+modId="${mod_id}" #mandatory
+version="${mod_version}" #mandatory
+displayName="${mod_name}" #mandatory
+
+# Tread Lightly is client-only. Without this, a vanilla or server-side version check would
+# flag a client running it as mismatched against servers that quite correctly do not have it.
+displayTest="IGNORE_ALL_VERSION"
+
+#logoFile="treadlightly.png" #optional
+authors="aspctt"
+
+description='''
+A footstep sound engine driven entirely by resource packs.
+'''
+
+# Uncomment once the first mixin is actually written.
+#[[mixins]]
+#config="${mod_id}.mixins.json"
+
+# The [[accessTransformers]] block allows you to declare where your AT file is.
+# If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
+#[[accessTransformers]]
+#file="META-INF/accesstransformer.cfg"
+
+[[dependencies.${mod_id}]] #optional
+    modId="neoforge" #mandatory
+    type="required" #mandatory
+    versionRange="[${neo_version},)" #mandatory
+    ordering="NONE"
+    # The mod does not load on a server at all, so the dependency is only declared for the client.
+    side="CLIENT"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="CLIENT"
