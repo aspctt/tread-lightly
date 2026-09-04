@@ -14,14 +14,11 @@ import com.aspctt.treadlightly.sound.Options;
 import com.aspctt.treadlightly.util.MathUtil;
 
 /**
- * Holds a sound back for the delay its acoustic asked for, then passes it on.
+ * Holds a sound back for the delay its acoustic asked for, putting the scuff of a heel just
+ * after the weight of the step. Anything without a delay goes straight through.
  * <p>
- * This is what puts the scuff of a heel just after the weight of the step rather than on top of
- * it. Anything without a delay goes straight through.
- * <p>
- * The queue is scanned rather than guarded by a next-due timestamp. It is almost always empty,
- * so scanning costs nothing, while a stale guard timestamp would be able to strand every
- * pending sound behind it for the rest of the session.
+ * The queue is scanned rather than guarded by a next-due timestamp: it is almost always empty,
+ * and a stale guard could strand every pending sound behind it for the rest of the session.
  */
 public class DelayedSoundPlayer implements SoundPlayer {
     /**

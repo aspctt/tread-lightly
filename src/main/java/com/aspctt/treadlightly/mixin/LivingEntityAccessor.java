@@ -9,14 +9,12 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import net.minecraft.world.entity.LivingEntity;
 
 /**
- * Exposes whether an entity is holding its jump input.
+ * Exposes whether an entity is holding its jump input, to tell a deliberate jump from walking
+ * off a ledge.
  * <p>
- * Needed to tell a deliberate jump from simply walking off a ledge, which want different
- * sounds. An access transformer would be the tidier route and is what NeoForge provides for
- * exactly this, but neither the MDK's DSL line nor NeoGradle 7.1's documented
- * {@code accessTransformers} block works: both quietly drop the joined Minecraft artifact from
- * the compile classpath, leaving every {@code net.minecraft} import unresolvable with nothing
- * naming the cause. Worth revisiting on a newer NeoGradle.
+ * An access transformer is the tidier route, but on NeoGradle 7.1.38 both the MDK's DSL line
+ * and the documented {@code accessTransformers} block drop the joined Minecraft artifact from
+ * the compile classpath, with nothing naming the cause. Worth retrying on a newer NeoGradle.
  */
 @Mixin(LivingEntity.class)
 public interface LivingEntityAccessor {

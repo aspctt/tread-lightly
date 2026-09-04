@@ -6,10 +6,8 @@ package com.aspctt.treadlightly.util;
 import net.minecraft.util.Mth;
 
 /**
- * A value that eases towards a target at a fixed rate, and can be read part way between ticks.
- * <p>
- * Used for the biome volume and pitch trim, so that crossing a border shifts the sound over a
- * moment rather than snapping mid-stride.
+ * A value that eases towards a target at a fixed rate, readable part way between ticks. Crossing
+ * a biome border shifts the sound over a moment rather than snapping mid-stride.
  */
 public class Lerp {
     private float previous;

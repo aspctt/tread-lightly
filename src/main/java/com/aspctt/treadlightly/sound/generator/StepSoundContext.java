@@ -10,10 +10,7 @@ import com.aspctt.treadlightly.world.Lookups;
 import com.aspctt.treadlightly.world.Solver;
 
 /**
- * What a generator needs to do its job, gathered in one place.
- * <p>
- * Passed in rather than reached for through a global engine instance, which is what makes a
- * generator something you can build in a test.
+ * What a generator needs to do its job.
  *
  * @param lookups  supplied rather than held, since a resource reload replaces the whole set
  * @param settings the user's configuration

@@ -22,10 +22,9 @@ import com.aspctt.treadlightly.util.PlayerUtil;
 /** Hands a resolved sound straight to the game's sound manager. */
 public final class ImmediateSoundPlayer implements SoundPlayer {
     /**
-     * Namespace used for sounds played for anybody but the listener.
-     * <p>
-     * Stereo recordings do not position well in 3D, so a pack ships mono variants for other
-     * people's footsteps and keeps the wider ones for your own.
+     * Namespace for sounds played for anybody but the listener. Stereo recordings do not
+     * position well in 3D, so a pack keeps those for your own steps and ships mono variants
+     * for everyone else's.
      */
     private static final String MONO_NAMESPACE = TreadLightly.MODID + "mono";
 

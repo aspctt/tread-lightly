@@ -7,12 +7,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 
 /**
- * Works out what an entity is actually standing on.
- * <p>
- * Harder than reading the block under its feet. A foot lands to one side of the entity's centre
- * depending on which foot it is and which way the entity faces; the block underfoot may be a
- * carpet lying on something else, or a fence the entity is perched on with air at foot level;
- * and the answer may be several sounds at once, a step plus wetness plus foliage.
+ * Works out what an entity is standing on. Not the same as reading the block under it: a foot
+ * lands off centre, what it meets may be a carpet or a fence rather than the block at foot
+ * level, and the answer can be several sounds at once.
  */
 public interface Solver {
     /** Looks for plants brushing against an entity's legs rather than anything underfoot. */
