@@ -1,5 +1,5 @@
 {
-  "commands.treadlightly.report.done": "Wrote %s. Click to open.",
+  "commands.treadlightly.report.done": "Wrote %s. %s of %s blocks have nothing mapped.",
   "commands.treadlightly.report.failed": "Could not write the report: %s",
   "commands.treadlightly.report.no_pack": "No sound pack is loaded, so there is nothing to report on.",
   "menu.treadlightly.category.behaviour": "Behaviour",

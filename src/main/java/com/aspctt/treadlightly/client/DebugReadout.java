@@ -5,6 +5,7 @@ package com.aspctt.treadlightly.client;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -34,12 +35,14 @@ public final class DebugReadout {
     }
 
     public static void onDebugText(CustomizeGuiOverlayEvent.DebugText event) {
-        Minecraft client = Minecraft.getInstance();
-
-        if (!client.getDebugOverlay().showDebugScreen()) {
-            return;
+        if (Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
+            appendTo(event.getRight());
         }
+    }
 
+    /** Separate from the event so the content can be exercised without a render pass. */
+    public static void appendTo(List<String> lines) {
+        Minecraft client = Minecraft.getInstance();
         @Nullable SoundEngine engine = TreadLightly.engine();
         @Nullable Player player = client.player;
 
@@ -47,7 +50,6 @@ public final class DebugReadout {
             return;
         }
 
-        List<String> lines = event.getRight();
         lines.add("");
 
         if (!engine.getLookups().hasData()) {
@@ -91,16 +93,18 @@ public final class DebugReadout {
                 : "nothing mapped, using the game's own sound";
     }
 
+    /**
+     * Entries are separated with a pipe, not a comma: a single entry can already name several
+     * acoustics comma separated, and mixing the two makes the line impossible to read. The
+     * unqualified entry comes first, the rest in a fixed order, so the same block always reads
+     * the same way.
+     */
     private static String join(Map<String, SoundsKey> mapped) {
-        StringBuilder out = new StringBuilder();
-
-        mapped.forEach((substrate, key) -> {
-            if (!out.isEmpty()) {
-                out.append(", ");
-            }
-            out.append(substrate.isEmpty() ? "" : substrate + "=").append(key.raw());
-        });
-
-        return out.toString();
+        return mapped.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry -> entry.getKey().isEmpty()
+                        ? entry.getValue().raw()
+                        : entry.getKey() + "=" + entry.getValue().raw())
+                .collect(Collectors.joining(" | "));
     }
 }

@@ -68,7 +68,9 @@ public final class ReportCommand {
                         Component.literal(file.getFileName().toString())
                                 .withStyle(style -> style
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file.toString()))
-                                        .withUnderlined(true))
+                                        .withUnderlined(true)),
+                        report.get("blocks_with_nothing_mapped").getAsInt(),
+                        report.get("blocks_in_game").getAsInt()
                 ).withStyle(ChatFormatting.GREEN), false));
             } catch (Exception e) {
                 TreadLightly.LOGGER.error("Could not write the block report", e);
