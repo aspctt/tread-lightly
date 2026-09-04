@@ -5,7 +5,7 @@
 ![Side](https://img.shields.io/badge/Side-Client_only-yellow)
 ![License](https://img.shields.io/badge/License-LGPL_v3_or_later-blue)
 
-> **Status: in development.** The engine works and ships a default sound pack. The config screen and a few refinements are outstanding.
+> **Status: ready for a first release.** The engine, the default pack, the config screen and the pack authoring tools are all in. Multiplayer behaviour is the least exercised part.
 
 ## Description
 
@@ -27,6 +27,16 @@ Additional sound packs are ordinary resource packs. Put them in `resourcepacks/`
 
 * Minecraft 1.21.1
 * NeoForge 21.1.235 or newer
+* [YetAnotherConfigLib](https://modrinth.com/mod/yacl) 3.6 or newer, **optional**, for the settings screen. Without it the mod works and the Mods list simply shows no config button.
+
+## Writing a pack
+
+A pack is a resource pack. Put the block map, acoustics and audio under `assets/treadlightly/` and it layers over the defaults, so you need only state what you are changing.
+
+Two things help while you work:
+
+* `/treadlightly report` writes out what every block currently resolves to. By default it lists only the blocks nothing has an opinion about, which is the list worth working through. `/treadlightly report full` lists everything.
+* F3 shows what is under your feet and what you are looking at, and whether it was mapped directly, inherited from the block it was built from, or fell through to the vanilla sound type.
 
 ## Licensing
 
