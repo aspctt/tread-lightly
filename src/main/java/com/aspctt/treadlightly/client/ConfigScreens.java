@@ -52,7 +52,7 @@ public final class ConfigScreens {
                 .name(Component.translatable(ROOT + "category.volume"))
                 .tooltip(Component.translatable(ROOT + "category.volume.tooltip"))
                 .group(group("sources")
-                        .option(percentage("volume", 70, () -> config.volume, v -> config.volume = v))
+                        .option(percentage("volume", 65, () -> config.volume, v -> config.volume = v))
                         .option(percentage("client_player", 100, () -> config.clientPlayerVolume, v -> config.clientPlayerVolume = v))
                         .option(percentage("other_player", 100, () -> config.otherPlayerVolume, v -> config.otherPlayerVolume = v))
                         .option(percentage("hostile", 100, () -> config.hostileEntitiesVolume, v -> config.hostileEntitiesVolume = v))

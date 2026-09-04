@@ -95,6 +95,14 @@ public class SoundEngine implements PlaybackSource {
         return !Minecraft.getInstance().isPaused() && isActive();
     }
 
+    /**
+     * Whether the game's own player sounds should be silenced because this mod is making them
+     * instead. Turning off the replace setting gives you both, which is what it promises.
+     */
+    public boolean replacesVanillaSounds() {
+        return config.isExclusive() && isActive();
+    }
+
     public boolean isEnabledFor(Entity entity) {
         return isRunning() && config.getEntitySelector().test(entity);
     }

@@ -25,7 +25,7 @@ import com.aspctt.treadlightly.sound.generator.Locomotion;
  * reading the file expects.
  */
 public class TreadLightlyConfig implements SoundSettings {
-    public int volume = 70;
+    public int volume = 65;
     public int clientPlayerVolume = 100;
     public int otherPlayerVolume = 100;
     public int hostileEntitiesVolume = 100;

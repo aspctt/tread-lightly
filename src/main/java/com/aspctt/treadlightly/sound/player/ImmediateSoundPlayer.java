@@ -8,7 +8,6 @@ import java.util.Random;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.resources.ResourceLocation;
@@ -67,15 +66,12 @@ public final class ImmediateSoundPlayer implements SoundPlayer {
 
         ResourceLocation id = resolve(client.getSoundManager(), soundName, location);
 
-        SoundInstance sound = new SimpleSoundInstance(
+        SoundInstance sound = new EngineSoundInstance(
                 id,
                 location.getSoundSource(),
                 volume, pitch,
                 SoundInstance.createUnseededRandom(),
-                false, 0,
-                SoundInstance.Attenuation.LINEAR,
-                location.getX(), location.getY(), location.getZ(),
-                false);
+                location.getX(), location.getY(), location.getZ());
 
         double distance = client.gameRenderer.getMainCamera().getPosition().distanceToSqr(location.position());
 
