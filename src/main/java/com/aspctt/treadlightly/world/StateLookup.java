@@ -242,7 +242,9 @@ public record StateLookup(Map<String, Bucket> substrates) implements Lookup.Data
                 }
 
                 if (!isTag && !BuiltInRegistries.BLOCK.containsKey(identifier)) {
-                    TreadLightly.LOGGER.warn("Sound registered for unknown block id {}", identifier);
+                    // Not a problem: a pack covering mods you have not installed, or blocks
+                    // from a later game version, is normal and the entry is simply unused.
+                    TreadLightly.LOGGER.debug("Sound registered for unknown block id {}", identifier);
                 }
             }
 

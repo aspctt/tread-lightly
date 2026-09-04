@@ -4,9 +4,12 @@
     "package": "com.aspctt.treadlightly.mixin",
     "compatibilityLevel": "JAVA_21",
     "client": [
+        "BlockMixin",
+        "BlockPropertiesMixin",
         "EntityMixin",
         "LivingEntityAccessor",
-        "LivingEntityMixin"
+        "LivingEntityMixin",
+        "StairBlockMixin"
     ],
     "injectors": {
         "defaultRequire": 1
