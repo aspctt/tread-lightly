@@ -59,6 +59,11 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
     private final Lerp biomePitch = new Lerp();
     private final Lerp biomeVolume = new Lerp();
 
+    private long lastBiomePosition = Long.MIN_VALUE;
+    @Nullable
+    private Lookups lastBiomeLookups;
+    private BiomeVariance biomeVariance = BiomeVariance.DEFAULT;
+
     /** Distance travelled at the last step, which the next step is measured from. */
     private float lastStepDistance;
     private double yPosition;
@@ -91,6 +96,31 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
         this.associations = new AssociationPool(entity, context.lookups(), context.solver());
     }
 
+    /**
+     * The biome trim for where the entity is now.
+     * <p>
+     * Cached per block position. Resolving it walks the biome zoomer and allocates three
+     * optionals on the way, and this runs for every tracked entity every tick, but the answer
+     * cannot change without the entity crossing into another block. Also refreshed when the
+     * loaded packs are replaced, since the trim they declare may have changed.
+     */
+    private BiomeVariance biomeVariance() {
+        long position = entity.blockPosition().asLong();
+        Lookups current = lookups();
+
+        if (position != lastBiomePosition || current != lastBiomeLookups) {
+            lastBiomePosition = position;
+            lastBiomeLookups = current;
+            biomeVariance = entity.level().getBiome(entity.blockPosition())
+                    .unwrapKey()
+                    .map(ResourceKey::location)
+                    .map(key -> current.biomes().lookup(key))
+                    .orElse(BiomeVariance.DEFAULT);
+        }
+
+        return biomeVariance;
+    }
+
     Variator variator() {
         return context.lookups().get().variator();
     }
@@ -116,11 +146,7 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
 
     @Override
     public void generateFootsteps() {
-        BiomeVariance variance = entity.level().getBiome(entity.blockPosition())
-                .unwrapKey()
-                .map(ResourceKey::location)
-                .map(key -> lookups().biomes().lookup(key))
-                .orElse(BiomeVariance.DEFAULT);
+        BiomeVariance variance = biomeVariance();
 
         biomePitch.update(variance.pitch(), BIOME_EASE_RATE);
         biomeVolume.update(variance.volume(), BIOME_EASE_RATE);
