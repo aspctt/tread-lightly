@@ -1,4 +1,7 @@
 {
+  "commands.treadlightly.report.done": "Wrote %s. Click to open.",
+  "commands.treadlightly.report.failed": "Could not write the report: %s",
+  "commands.treadlightly.report.no_pack": "No sound pack is loaded, so there is nothing to report on.",
   "menu.treadlightly.category.behaviour": "Behaviour",
   "menu.treadlightly.category.behaviour.tooltip": "When footsteps play, and who gets them.",
   "menu.treadlightly.category.volume": "Volume",

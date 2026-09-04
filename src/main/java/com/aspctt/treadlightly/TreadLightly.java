@@ -17,12 +17,16 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
+import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
 import com.aspctt.treadlightly.client.ConfigScreens;
+import com.aspctt.treadlightly.client.DebugReadout;
+import com.aspctt.treadlightly.client.ReportCommand;
 import com.aspctt.treadlightly.config.TreadLightlyConfig;
 import com.aspctt.treadlightly.sound.SoundEngine;
 import com.aspctt.treadlightly.sound.VanillaSoundSuppressor;
@@ -63,6 +67,8 @@ public class TreadLightly {
 
         NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, event -> onTick());
         NeoForge.EVENT_BUS.addListener(PlaySoundEvent.class, VanillaSoundSuppressor::onPlaySound);
+        NeoForge.EVENT_BUS.addListener(RegisterClientCommandsEvent.class, ReportCommand::register);
+        NeoForge.EVENT_BUS.addListener(CustomizeGuiOverlayEvent.DebugText.class, DebugReadout::onDebugText);
 
         // Optional: without YetAnotherConfigLib the mod works and only the screen is missing.
         // Registering nothing leaves the Mods list without a config button, which is what
