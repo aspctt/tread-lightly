@@ -44,6 +44,15 @@ config="${mod_id}.mixins.json"
     side="CLIENT"
 
 [[dependencies.${mod_id}]]
+    # Draws the config screen. Without it the mod works and the Mods list simply shows no
+    # config button.
+    modId="yet_another_config_lib_v3"
+    type="optional"
+    versionRange="[3.6,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.${mod_id}]]
     modId="minecraft"
     type="required"
     versionRange="${minecraft_version_range}"

@@ -23,7 +23,11 @@ sourceSets.main.resources {
 }
 
 repositories {
-    // Add here additional repositories if required by some of the dependencies below.
+    maven {
+        name = 'XanderMaven'
+        url = 'https://maven.isxander.dev/releases'
+        content { includeGroup 'dev.isxander' }
+    }
 }
 
 base {
@@ -84,6 +88,15 @@ configurations {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
+
+    // Compiled against, but not required at runtime: every call into it sits behind a check
+    // that it is actually loaded. localRuntime rather than runtimeOnly so it is present in
+    // development runs without becoming a dependency of anything that consumes this mod.
+    // Non-transitive: it declares dependencies that live on neither its own maven nor Maven
+    // Central, and ships them inside its jar for the loader to unpack, so resolving them here
+    // would fail over something we never touch.
+    compileOnly("dev.isxander:yet-another-config-lib:${yacl_version}") { transitive = false }
+    localRuntime("dev.isxander:yet-another-config-lib:${yacl_version}") { transitive = false }
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
