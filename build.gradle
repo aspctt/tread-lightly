@@ -12,7 +12,11 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = mod_version
+// The game version rides along in the mod version, so the jar, the Mods list and a crash
+// report all say the same thing. Checked against Maven's version comparison, which is what
+// NeoForge resolves dependency ranges with: 1.0.0+1.21.1 sorts above 1.0.0 and below 1.0.1,
+// and satisfies a range of [1.0.0,), so nothing depending on this is confused by it.
+version = "${mod_version}+${minecraft_version}"
 group = mod_group_id
 
 sourceSets.main.resources {
@@ -40,11 +44,6 @@ base {
 // rather than only living in the repository. NOTICE carries the MIT attribution that the
 // Presence Footsteps and MDK material requires, which travels with it for the same reason.
 tasks.named('jar', Jar) {
-    // The game version belongs in the file name, where someone picking a download needs it.
-    // The version declared to the loader stays the plain mod version, so what the Mods list
-    // and crash reports show is not muddled with it.
-    archiveVersion = "${mod_version}+${minecraft_version}"
-
     from(rootProject.file('LICENSE'))
     from(rootProject.file('COPYING'))
     from(rootProject.file('NOTICE'))
@@ -119,7 +118,7 @@ tasks.withType(ProcessResources).configureEach {
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
-            mod_version            : mod_version,
+            mod_version            : project.version,
     ]
     inputs.properties replaceProperties
 
