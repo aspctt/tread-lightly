@@ -24,7 +24,7 @@ displayTest="IGNORE_ALL_VERSION"
 authors="aspctt"
 
 description='''
-A footstep sound engine driven entirely by resource packs.
+Footsteps worth listening to. Snow crunches, wood creaks, puddles splash, and long grass drags at your legs as you push through it. Every block in the world sounds like what it is.
 '''
 
 [[mixins]]

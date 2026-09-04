@@ -2,7 +2,7 @@
 
 ![Version](https://img.shields.io/badge/Available_for-1.21.1-blue)
 ![Mod Loader](https://img.shields.io/badge/Mod_Loader-NeoForge-orange)
-![Side](https://img.shields.io/badge/Side-Client_only-yellow)
+![Requires](https://img.shields.io/badge/Requires-Nothing-brightgreen)
 ![License](https://img.shields.io/badge/License-LGPL_v3_or_later-blue)
 
 Tread Lightly gives every block its own footsteps. Vanilla picks one sound per block and plays it at a fixed rate. Tread Lightly works out what is actually under each foot, in turn, and plays something appropriate for how you are moving over it.
