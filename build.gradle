@@ -31,13 +31,20 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    // The display name without its space, so the file reads as the mod is written rather than
+    // as its id: TreadLightly-1.0.0+1.21.1.jar
+    archivesName = mod_name.replace(" ", "")
 }
 
 // The LGPL requires the licence to accompany the binary, so the texts ship inside the JAR
 // rather than only living in the repository. NOTICE carries the MIT attribution that the
 // Presence Footsteps and MDK material requires, which travels with it for the same reason.
 tasks.named('jar', Jar) {
+    // The game version belongs in the file name, where someone picking a download needs it.
+    // The version declared to the loader stays the plain mod version, so what the Mods list
+    // and crash reports show is not muddled with it.
+    archiveVersion = "${mod_version}+${minecraft_version}"
+
     from(rootProject.file('LICENSE'))
     from(rootProject.file('COPYING'))
     from(rootProject.file('NOTICE'))
