@@ -1,3 +1,22 @@
 {
-  "mod.treadlightly.name": "Tread Lightly"
+  "mod.treadlightly.name": "Tread Lightly",
+  "subtitles.treadlightly.chain": "Chain Jingles",
+  "subtitles.treadlightly.fire_flames": "Fire Hisses",
+  "subtitles.treadlightly.glass_croak": "Glass groans",
+  "subtitles.treadlightly.glass_rattles": "Glass rattles",
+  "subtitles.treadlightly.grass_crunch": "Grass crunches",
+  "subtitles.treadlightly.grass_rustles": "Grass rustles",
+  "subtitles.treadlightly.gravel.crunch": "Gravel crunches",
+  "subtitles.treadlightly.ice_crack": "Ice cracks",
+  "subtitles.treadlightly.leaves_rustle": "Leaves rustles",
+  "subtitles.treadlightly.metal_clink": "Metal clinking",
+  "subtitles.treadlightly.mud_squealk": "Mud squishes",
+  "subtitles.treadlightly.sand_crunch": "Sand crunches",
+  "subtitles.treadlightly.snow_crunch": "Snow crunches",
+  "subtitles.treadlightly.stone_crack": "Stone crumbles",
+  "subtitles.treadlightly.swim": "Water flows",
+  "subtitles.treadlightly.wax_squeak": "Wax squeaks",
+  "subtitles.treadlightly.wood_bends": "Wood bends",
+  "subtitles.treadlightly.wood_creaks": "Wood creaks",
+  "subtitles.treadlightly.wood_squeak": "Wood squeaks"
 }

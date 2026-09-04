@@ -5,7 +5,7 @@
 ![Side](https://img.shields.io/badge/Side-Client_only-yellow)
 ![License](https://img.shields.io/badge/License-LGPL_v3_or_later-blue)
 
-> **Status: in development.** The project skeleton is in place. The sound engine is not.
+> **Status: in development.** The engine works and ships a default sound pack. The config screen and a few refinements are outstanding.
 
 ## Description
 
@@ -19,9 +19,9 @@ This is a deliberately simplified take on the idea. The intent is a smaller engi
 
 ## Installation
 
-Place the JAR in your `mods` folder.
+Place the JAR in your `mods` folder. It ships a default sound pack, so it works as soon as it loads.
 
-Sound packs are ordinary resource packs. Put them in `resourcepacks/` and enable them in Options > Resource Packs.
+Additional sound packs are ordinary resource packs. Put them in `resourcepacks/` and enable them in Options > Resource Packs; they layer over the defaults, so a pack need only state what it changes.
 
 ## Dependencies
 
