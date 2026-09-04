@@ -48,7 +48,7 @@ public class QuadrupedModifier extends Modifier<TerrestrialStepSoundGenerator> {
             spacing *= spacing;
             spacing *= WALK_SPACING;
 
-            // The cycle only runs 0 to 2, so the original's extra test for 3 was dead.
+            // The gait cycle runs 0 to 2.
             return hoof == 1
                     ? distance * spacing * WALK_OVERALL_MULTIPLIER
                     : distance * (1 - spacing) * WALK_OVERALL_MULTIPLIER;

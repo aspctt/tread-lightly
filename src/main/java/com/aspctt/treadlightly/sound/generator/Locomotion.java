@@ -17,9 +17,9 @@ import net.minecraft.world.entity.player.Player;
 /**
  * How an entity gets about, which decides the shape of its gait.
  * <p>
- * The original also carried two flying stances, which existed for Mine Little Pony's pegasi.
- * No vanilla entity ever used them: every flying mob is mapped to {@link #NONE}, so they and
- * the winged generator behind them are gone.
+ * Only walking gaits exist. Anything that flies or swims maps to {@link #NONE} and makes no
+ * footsteps, which is what the locomotion map asks for on every flying and aquatic mob in the
+ * game.
  */
 public enum Locomotion {
     /** Makes no footsteps at all. Fish, bats, slimes, anything that does not walk. */

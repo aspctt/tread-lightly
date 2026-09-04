@@ -26,8 +26,8 @@ public class Variator {
     /**
      * Shortest gap between the idle shuffles of a standing entity, in milliseconds.
      * <p>
-     * The original misspelled this and its partner below with one M. Packs were written against
-     * that spelling, so both are accepted and the correct one is what gets written.
+     * An earlier spelling of this and its partner below used a single M. Packs written against
+     * that are still read; the corrected spelling is the one written out.
      */
     @SerializedName(value = "IMMOBILE_INTERVAL_MIN", alternate = "IMOBILE_INTERVAL_MIN")
     public int IMMOBILE_INTERVAL_MIN = 500;
@@ -51,9 +51,8 @@ public class Variator {
     /**
      * Speed at which footsteps begin getting louder as an entity works up to a run.
      * <p>
-     * The original declared 0.001 here and then overwrote this field and the one below with
-     * hardcoded values on every single frame, so no pack could ever change either. These
-     * defaults are the values that were actually in use.
+     * Deliberately close to {@link #RUNNING_RAMPUP_END}: the boost belongs to the last part of
+     * the change into a run, not spread across the whole walk.
      */
     public float RUNNING_RAMPUP_BEGIN = 0.011F;
 

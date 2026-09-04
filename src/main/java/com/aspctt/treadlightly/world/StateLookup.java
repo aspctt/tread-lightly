@@ -188,8 +188,8 @@ public record StateLookup(Map<String, Bucket> substrates) implements Lookup.Data
 
         void add(Key key) {
             Set<Key> target = key.empty() ? keys : priorityKeys;
-            // Removed first so a later pack's entry replaces rather than losing to the original
-            // insertion position.
+            // Removed first so a later pack's entry replaces an earlier one rather than
+            // losing to its insertion position.
             target.remove(key);
             target.add(key);
         }
@@ -272,8 +272,8 @@ public record StateLookup(Map<String, Bucket> substrates) implements Lookup.Data
          * Whether this entry's property constraints hold for a state.
          * <p>
          * A constraint naming a property the state does not have is ignored rather than
-         * failing the match. That is how the original behaved, and packs in the wild carry
-         * such entries, so tightening it would silence blocks that currently sound correct.
+         * failing the match. Packs in the wild carry such entries, and tightening this would
+         * silence blocks that currently sound correct.
          */
         boolean matches(BlockState state) {
             if (empty) {

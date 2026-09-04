@@ -102,7 +102,7 @@ public final class ImmediateSoundPlayer implements SoundPlayer {
         if (!PlayerUtil.isClientPlayer(location)) {
             ResourceLocation mono = ResourceLocation.fromNamespaceAndPath(MONO_NAMESPACE, name);
             // Falling back rather than going silent, since a pack is under no obligation to
-            // ship mono variants and the original simply played nothing when it had not.
+            // ship mono variants at all.
             if (sounds.getSoundEvent(mono) != null) {
                 return mono;
             }

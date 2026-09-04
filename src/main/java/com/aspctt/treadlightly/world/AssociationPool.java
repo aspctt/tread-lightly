@@ -47,10 +47,10 @@ public final class AssociationPool {
     /**
      * Entities that could be stood on, found once for the whole pass.
      * <p>
-     * The original ran a world entity query inside every single lookup, and one pass performs
-     * up to five of those across three vertically adjacent positions. Neither of the filters
-     * depends on which position is being asked about, so one query covering the pass's whole
-     * range plus a cheap box test per lookup gives the same answer for a fifth of the work.
+     * A pass performs up to five lookups across three vertically adjacent positions, and
+     * neither of the filters depends on which position is being asked about. One query covering
+     * the pass's whole range, plus a cheap box test per lookup, gives the same answer for a
+     * fifth of the spatial queries on the hottest path in the mod.
      */
     private List<Entity> nearby = List.of();
     private boolean nearbyLoaded;

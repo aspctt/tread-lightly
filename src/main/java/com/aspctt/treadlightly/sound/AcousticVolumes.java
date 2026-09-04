@@ -6,10 +6,10 @@ package com.aspctt.treadlightly.sound;
 /**
  * The two layer volumes the acoustic player needs from configuration.
  * <p>
- * Narrow on purpose. The original reached into a global mod instance from inside the options
- * type itself, which made the acoustics untestable and tied a value object to a singleton.
- * Values are read at playback rather than captured, so a change in the config screen is heard
- * on the next step without anything being rebuilt.
+ * Narrow on purpose, and handed in rather than reached for: a value type that calls out to a
+ * global to answer a question cannot be built in a test, and ties the acoustics to a running
+ * game. Values are read at playback rather than captured, so a change in the config screen is
+ * heard on the next step without anything being rebuilt.
  */
 public interface AcousticVolumes {
     /** Everything at full volume, for tests and for running without a config. */

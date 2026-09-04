@@ -19,12 +19,9 @@ import com.aspctt.treadlightly.util.MathUtil;
  * This is what puts the scuff of a heel just after the weight of the step rather than on top of
  * it. Anything without a delay goes straight through.
  * <p>
- * The original's version of this was thoroughly broken. A sound that played was returned to the
- * queue rather than removed, and the timestamp guarding the queue was left at
- * {@link Long#MAX_VALUE} afterwards, so the first delayed sound in a session played and then
- * every later one was silently dropped forever. Its scheduling was wrong too, taking the larger
- * of a duration and an absolute timestamp and treating the result as a duration. Rewritten here
- * rather than carried across.
+ * The queue is scanned rather than guarded by a next-due timestamp. It is almost always empty,
+ * so scanning costs nothing, while a stale guard timestamp would be able to strand every
+ * pending sound behind it for the rest of the session.
  */
 public class DelayedSoundPlayer implements SoundPlayer {
     /**
@@ -59,8 +56,8 @@ public class DelayedSoundPlayer implements SoundPlayer {
 
         pending.add(new PendingSound(location, soundName, volume, pitch, options,
                 System.currentTimeMillis() + MathUtil.randAB(getRNG(), min, max),
-                // "skippable" turns the lateness check off rather than on, which is how the
-                // original read it. Kept, because packs are written against that behaviour.
+                // "skippable" turns the lateness check off rather than on. Counter-intuitive,
+                // but it is the pack format and packs are written against it.
                 options.containsKey("skippable") ? -1L : max));
     }
 

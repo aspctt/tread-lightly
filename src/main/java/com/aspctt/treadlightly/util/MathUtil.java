@@ -16,8 +16,8 @@ public interface MathUtil {
     /**
      * A random long in [a, b], or a when the range is empty or inverted.
      * <p>
-     * The original bounded this by {@code b} rather than by the width of the range, so a delay
-     * declared as 100 to 300 actually landed anywhere from 100 to 400.
+     * Bounded by the width of the range rather than by {@code b}, so a delay declared as 100 to
+     * 300 stays inside that window instead of reaching 400.
      */
     static long randAB(Random rng, long a, long b) {
         return a >= b ? a : a + rng.nextInt((int) Math.min(b - a + 1, Integer.MAX_VALUE));

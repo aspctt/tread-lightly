@@ -48,11 +48,9 @@ record WeightedAcoustic(Entry[] entries) implements Acoustic {
     /**
      * Builds the running totals a draw is compared against.
      * <p>
-     * The original stored each entry's own share of the total here rather than the running
-     * sum, and then looked for the first entry whose share was at least as large as the draw.
-     * With two equal weights that gives both entries a threshold of 0.5, so any draw above 0.5
-     * matched nothing at all and the footstep fell silent. Half of all steps over such a block
-     * made no sound.
+     * Cumulative, not each entry's own share of the total. Comparing a draw against individual
+     * shares leaves gaps matching nothing: two equal weights would each hold 0.5, so any draw
+     * above half falls through every entry and the footstep makes no sound at all.
      */
     private static Acoustic build(List<Integer> weights, List<Acoustic> acoustics) {
         int total = 0;
