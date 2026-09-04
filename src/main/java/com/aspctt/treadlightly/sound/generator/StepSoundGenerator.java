@@ -4,8 +4,8 @@
 package com.aspctt.treadlightly.sound.generator;
 
 /**
- * Watches one entity and decides when it has taken a step. Driven per frame, not per tick, so a
- * footfall is heard when it happens rather than at the next tick boundary.
+ * Watches one entity and decides when it has taken a step. Driven once per client tick; the
+ * tick delta passed to the trim accessors is for the moment a sound actually plays.
  */
 public interface StepSoundGenerator {
     /** Biome pitch trim, part way between the last two frames. */

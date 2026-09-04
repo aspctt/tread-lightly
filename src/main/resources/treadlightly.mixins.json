@@ -4,7 +4,9 @@
     "package": "com.aspctt.treadlightly.mixin",
     "compatibilityLevel": "JAVA_21",
     "client": [
-        "LivingEntityAccessor"
+        "EntityMixin",
+        "LivingEntityAccessor",
+        "LivingEntityMixin"
     ],
     "injectors": {
         "defaultRequire": 1
