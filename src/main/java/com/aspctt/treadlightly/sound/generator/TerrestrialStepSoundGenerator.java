@@ -11,6 +11,8 @@ import net.minecraft.core.BlockPos;
 /*import net.minecraft.core.component.DataComponents;*/
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
+//? if >=26.1 && <26.2
+/*import net.minecraft.tags.FluidTags;*/
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -303,8 +305,14 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
         if (hasStoppingConditions()) {
             float volume = Math.min(1, (float) entity.getDeltaMovement().length() * 0.35F);
             // NeoForge's fluid type rather than the deprecated tag check, so a modded fluid
-            // that behaves like lava is treated like it.
+            // that behaves like lava is treated like it. The 26.1 jar also has to run on 26.1 and
+            // 26.1.1, whose NeoForge has no fluid type check at all, so that band keeps the tag.
+            //? if <26.1 || >=26.2 {
             boolean submerged = entity.isUnderWater() || entity.isEyeInFluidType(NeoForgeMod.LAVA_TYPE.value());
+            //?} else {
+            /*@SuppressWarnings("deprecation")
+            boolean submerged = entity.isUnderWater() || entity.isEyeInFluid(FluidTags.LAVA);
+            *///?}
 
             lookups().acoustics().playAcoustic(entity,
                     entity.isInWater() ? SoundsKey.SWIM_WATER : SoundsKey.SWIM_LAVA,
