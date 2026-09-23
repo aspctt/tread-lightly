@@ -76,7 +76,9 @@ public class MotionTracker {
             motionX = entity.getDeltaMovement().x;
             motionY = entity.getDeltaMovement().y;
             motionZ = entity.getDeltaMovement().z;
-            distanceTraveled = entity.walkDist;
+            // moveDist rather than walkDist: it counts vertical movement while climbing, which is
+            // all the movement there is going straight up a ladder.
+            distanceTraveled = entity.moveDist;
             fallDistance = entity.fallDistance;
         } else {
             // No velocity is sent for anyone else, so it is inferred from where they were.
