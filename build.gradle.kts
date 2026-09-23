@@ -126,6 +126,10 @@ tasks.jar {
 	from(rootProject.file("LICENSE"))
 	from(rootProject.file("COPYING"))
 	from(rootProject.file("NOTICE"))
+
+	// The loader goes on the file name only, so a download says what it is for. The mod version stays
+	// free of it: the Mods list and crash reports already name the loader.
+	archiveFileName = "${prop("archives_name")}-${project.version}-neoforge.jar"
 }
 
 tasks.withType<JavaCompile>().configureEach {

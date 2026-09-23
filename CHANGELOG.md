@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Each file only accepts NeoForge builds it has been checked against: 21.1.235, 21.11.45, 26.1.0.19-beta, 26.2.0.76 and 26.3.0.12-beta or newer
 - On 26.3 the config screen waits on YetAnotherConfigLib, whose only 26.3 build so far will not load there. The mod works without it
+- Files are named with the loader on the end, like `TreadLightly-1.1.0+26.3-neoforge.jar`
 - Built with ModDevGradle and Stonecutter instead of NeoGradle
 
 ### Fixed
