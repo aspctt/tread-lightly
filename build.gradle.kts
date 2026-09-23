@@ -132,6 +132,20 @@ tasks.jar {
 	archiveFileName = "${prop("archives_name")}-${project.version}-neoforge.jar"
 }
 
+// A sources jar beside each jar, holding that version's own preprocessed code and the pack's text files.
+// The audio is left out: it is already in the main jar and would more than double the download.
+java {
+	withSourcesJar()
+}
+
+tasks.named<Jar>("sourcesJar") {
+	exclude("**/*.ogg")
+	from(rootProject.file("LICENSE"))
+	from(rootProject.file("COPYING"))
+	from(rootProject.file("NOTICE"))
+	archiveFileName = "${prop("archives_name")}-${project.version}-neoforge-sources.jar"
+}
+
 tasks.withType<JavaCompile>().configureEach {
 	options.encoding = "UTF-8"
 	// Deprecations are worth seeing: reaching for an API the game has moved on from is usually a sign of

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Iron and copper chains jingle underfoot and as you brush past them, on the versions that have them
 - On 1.21.11 and later, the F3 readout is an entry of its own in the debug options, `treadlightly:footsteps`, so it can be switched off there
 - Happy ghasts float rather than walk, so they make no footsteps
+- A sources jar beside each file, with that version's code and the pack's text files
 - Checks that run on every push: each file's mixin targets are confirmed against its own Minecraft version, and every piece of game code it uses is confirmed present in the oldest NeoForge build it accepts
 
 ### Changed
