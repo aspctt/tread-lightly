@@ -1,7 +1,7 @@
 <h1 style="text-align: center;"> Tread Lightly </h1>
 
 <p style="text-align: center;">
-	<img src="https://img.shields.io/badge/Available_for-1.21.1-blue" alt="Version">
+	<img src="https://img.shields.io/badge/Available_for-1.21.1_--_26.3-blue" alt="Version">
 	<img src="https://img.shields.io/badge/Requires-Nothing-brightgreen" alt="Requires">
 	<img src="https://img.shields.io/badge/License-LGPL--3.0--or--later-red" alt="License">
 </p>
@@ -37,7 +37,7 @@
 
 <h3>Requirements</h3>
 
-<p>Minecraft 1.21.1 and NeoForge 21.1.235 or newer. Client side only.</p>
+<p>Minecraft 1.21.1, 1.21.11, 26.1, 26.2 or 26.3, each with a recent NeoForge. The 26.1 file covers 26.1, 26.1.1 and 26.1.2. Client side only.</p>
 
 <h3>License</h3>
 

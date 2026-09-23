@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/Available_for-1.21.1-blue)
+![Version](https://img.shields.io/badge/Available_for-1.21.1_--_26.3-blue)
 ![Requires](https://img.shields.io/badge/Requires-Nothing-brightgreen)
 ![License](https://img.shields.io/badge/License-LGPL--3.0--or--later-red)
 
@@ -35,7 +35,7 @@ This is a deliberately smaller take on the idea than the mod it comes from: a le
 
 ### Requirements
 
-Minecraft 1.21.1 and NeoForge 21.1.235 or newer. Client side only.
+Minecraft 1.21.1, 1.21.11, 26.1, 26.2 or 26.3, each with a recent NeoForge. The 26.1 file covers 26.1, 26.1.1 and 26.1.2. Client side only.
 
 ### License
 

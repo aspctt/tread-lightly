@@ -1,6 +1,6 @@
 # <p align=center> Tread Lightly </p>
 
-![Version](https://img.shields.io/badge/Available_for-1.21.1-blue)
+![Version](https://img.shields.io/badge/Available_for-1.21.1_--_26.3-blue)
 ![Mod Loader](https://img.shields.io/badge/Mod_Loader-NeoForge-orange)
 ![Side](https://img.shields.io/badge/Side-Client_only-yellow)
 ![License](https://img.shields.io/badge/License-LGPL_v3_or_later-blue)
@@ -25,9 +25,19 @@ Additional sound packs are ordinary resource packs. Put them in `resourcepacks/`
 
 ## Dependencies
 
-* Minecraft 1.21.1
-* NeoForge 21.1.235 or newer
-* [YetAnotherConfigLib](https://modrinth.com/mod/yacl) 3.6 or newer, **optional**, for the settings screen. Without it the mod works and the Mods list simply shows no config button.
+One jar per Minecraft version. The 26.1 jar covers 26.1, 26.1.1 and 26.1.2.
+
+| Minecraft | NeoForge | YetAnotherConfigLib |
+|---|---|---|
+| 1.21.1 | 21.1.235 or newer | 3.6 or newer |
+| 1.21.11 | 21.11.45 or newer | 3.8.1 or newer |
+| 26.1, 26.1.1, 26.1.2 | 26.1.0.19-beta or newer | 3.9.6 or newer |
+| 26.2 | 26.2.0.76 or newer | 3.9.6 or newer |
+| 26.3 | 26.3.0.12-beta or newer | none loads yet |
+
+The NeoForge minimum for each is the oldest build that jar has been checked against, not a guess.
+
+[YetAnotherConfigLib](https://modrinth.com/mod/yacl) is **optional** and only draws the settings screen. Without it the mod works and the Mods list simply shows no config button. Its only 26.3 build so far declares that it needs 26.2, so NeoForge will not load it on 26.3; the screen will appear once a build that accepts 26.3 is out.
 
 ## Writing a pack
 
@@ -36,7 +46,36 @@ A pack is a resource pack. Put the block map, acoustics and audio under `assets/
 Two things help while you work:
 
 * `/treadlightly report` writes out what every block currently resolves to. By default it lists only the blocks nothing has an opinion about, which is the list worth working through. `/treadlightly report full` lists everything.
-* F3 shows what is under your feet and what you are looking at, and whether it was mapped directly, inherited from the block it was built from, or fell through to the vanilla sound type.
+* F3 shows what is under your feet and what you are looking at, and whether it was mapped directly, inherited from the block it was built from, or fell through to the vanilla sound type. From 1.21.11 it is an entry of its own in the debug options, `treadlightly:footsteps`.
+
+A block id that does not exist in the running version is simply unused, so one pack can serve every version. Where a block was renamed, map both ids, or a tag that covers it.
+
+## Building
+
+Every Minecraft version is built from one source tree with [Stonecutter](https://stonecutter.kikugie.dev/). The targets are declared in [settings.gradle.kts](./settings.gradle.kts), each with its Minecraft, NeoForge and YACL versions in `versions/<target>/gradle.properties`.
+
+```bash
+./gradlew buildAll
+```
+
+That writes one jar per target under `versions/<target>/build/libs/`. To work on a single version, run `./gradlew "26.2:build"`, or switch the source tree over with the "Set active project to ..." tasks so the IDE resolves against that version. Run `Reset active project` before committing, so the tree goes back to 1.21.1.
+
+Version specific code is marked inline with `//? if` comments, or handled as a rename in [stonecutter.gradle.kts](./stonecutter.gradle.kts) when nothing but a name changed.
+
+### Checks
+
+Two things compile cleanly and still fail in the game, so both are checked against the game's own bytecode with `javap`. CI runs them on every push.
+
+* **Mixin targets.** A mixin names its targets in strings javac never looks at. `tools/check-mixin-targets.py` confirms every injected method, accessor and shadowed field still exists on each target, with the types the mixin expects, and that each injection handler's arguments still match.
+* **Older NeoForge builds.** A jar is compiled once, against one NeoForge build, but accepts older ones too. `tools/check-linkage.py` reads every game method, field and class the jar uses and checks each one exists in the oldest build it accepts. This is what caught the 26.1 jar calling a NeoForge method that 26.1 and 26.1.1 do not have.
+
+```bash
+python tools/check-mixin-targets.py
+./gradlew :26.1:writeCompileClasspath -Pneo_version=26.1.0.19-beta -Pminecraft_version=26.1
+python tools/check-linkage.py 26.1 26.1.0.19-beta
+```
+
+Raising a NeoForge minimum in `versions/<target>/gradle.properties` should come with the same check against the new floor, and CI's list of floors in `.github/workflows/build.yml` should match.
 
 ## Licensing
 
@@ -51,7 +90,7 @@ Tread Lightly began as a port of [Presence Footsteps](https://github.com/Sollace
 
 ## Documentation
 
-* [CHANGE_LOG.md](./CHANGE_LOG.md) lists what has changed.
+* [CHANGELOG.md](./CHANGELOG.md) lists what has changed.
 
 ## Credits
 
