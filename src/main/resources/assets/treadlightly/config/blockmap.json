@@ -892,6 +892,8 @@
 	"minecraft:powder_snow_cauldron": "metalbar",
 	"minecraft:chain": "chain",
 	"minecraft:chain.foliage": "chain",
+	"#minecraft:chains": "chain",
+	"#minecraft:chains.foliage": "chain",
 
 	"minecraft:potted_oxeye_daisy.foliage": "brush",
 
