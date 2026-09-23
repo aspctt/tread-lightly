@@ -198,7 +198,12 @@ public final class AssociationPool {
         nearby = entity.level().getEntities(entity,
                 new AABB(baseX - GOLEM_REACH, baseY - 1, baseZ - GOLEM_REACH,
                          baseX + 1 + GOLEM_REACH, baseY + 2, baseZ + 1 + GOLEM_REACH),
+                // From 1.21.11 whether something is solid can depend on who is asking: a happy
+                // ghast is only solid to a player standing on top of it.
+                //? if <1.21.11 {
                 e -> !e.canBeCollidedWith() || e.getBoundingBox().maxY < standingOn);
+                //?} else
+                /*e -> !e.canBeCollidedWith(entity) || e.getBoundingBox().maxY < standingOn);*/
     }
 
     private boolean getForState(BlockState state, String substrate) {

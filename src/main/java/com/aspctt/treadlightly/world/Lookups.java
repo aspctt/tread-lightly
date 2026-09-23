@@ -13,6 +13,8 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+//? if >=26.2
+/*import net.minecraft.world.entity.EntityTypes;*/
 import net.minecraft.world.level.block.state.BlockState;
 
 import com.aspctt.treadlightly.TreadLightly;

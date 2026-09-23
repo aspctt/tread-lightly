@@ -38,7 +38,11 @@ public class PrimitiveLookup extends AbstractSubstrateLookup<SoundEvent> {
 
     @Override
     protected ResourceLocation getId(SoundEvent key) {
+        // SoundEvent became a record in 1.21.11.
+        //? if <1.21.11 {
         return key.getLocation();
+        //?} else
+        /*return key.location();*/
     }
 
     public static String getSubstrate(SoundType type) {

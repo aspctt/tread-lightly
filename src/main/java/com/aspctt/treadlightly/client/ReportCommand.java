@@ -67,7 +67,11 @@ public final class ReportCommand {
                         "commands.treadlightly.report.done",
                         Component.literal(file.getFileName().toString())
                                 .withStyle(style -> style
+                                        // By 1.21.11 each click action is a record of its own.
+                                        //? if <1.21.11 {
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file.toString()))
+                                        //?} else
+                                        /*.withClickEvent(new ClickEvent.OpenFile(file.toString()))*/
                                         .withUnderlined(true)),
                         report.get("blocks_with_nothing_mapped").getAsInt(),
                         report.get("blocks_in_game").getAsInt()

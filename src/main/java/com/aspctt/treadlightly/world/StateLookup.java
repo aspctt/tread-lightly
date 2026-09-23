@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.google.gson.JsonObject;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -21,7 +23,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.Property;
 
 import com.aspctt.treadlightly.TreadLightly;
@@ -282,19 +286,24 @@ public record StateLookup(Map<String, Bucket> substrates) implements Lookup.Data
                 return true;
             }
 
-            Map<Property<?>, Comparable<?>> entries = state.getValues();
+            // By name from the block's definition: a hash lookup, and the same on every version,
+            // where the state's own view of its values went from a map to a stream in 26.1.
+            StateDefinition<Block, BlockState> definition = state.getBlock().getStateDefinition();
 
             for (Attribute property : properties) {
-                for (Property<?> key : entries.keySet()) {
-                    if (key.getName().equals(property.name())) {
-                        if (!Objects.toString(entries.get(key)).equalsIgnoreCase(property.value())) {
-                            return false;
-                        }
-                    }
+                @Nullable Property<?> key = definition.getProperty(property.name());
+
+                if (key != null && !valueName(state, key).equalsIgnoreCase(property.value())) {
+                    return false;
                 }
             }
 
             return true;
+        }
+
+        /** Through a type parameter so the wildcard in the state's property list can be read back. */
+        private static <T extends Comparable<T>> String valueName(BlockState state, Property<T> property) {
+            return Objects.toString(state.getValue(property));
         }
 
         @Override

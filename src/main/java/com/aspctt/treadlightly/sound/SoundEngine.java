@@ -18,15 +18,19 @@ import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.Entity;
+//? if <1.21.11 {
 import net.minecraft.world.entity.FlyingMob;
+//?} else {
+/*import net.minecraft.world.entity.animal.happyghast.HappyGhast;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.Phantom;
+*///?}
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.entity.vehicle.Boat;
 
 import com.aspctt.treadlightly.config.TreadLightlyConfig;
 import com.aspctt.treadlightly.sound.generator.StepSoundContext;
@@ -174,9 +178,13 @@ public class SoundEngine implements PlaybackSource {
                 cameraEntity.getBoundingBox().inflate(RANGE),
                 e -> e instanceof LivingEntity living
                         && !(e instanceof WaterAnimal)
+                        // Ghasts and phantoms. From 1.21.11 there is no shared supertype to test
+                        // for, so they are named, along with the happy ghast that arrived without one.
+                        //? if <1.21.11 {
                         && !(e instanceof FlyingMob)
-                        && !(e instanceof Shulker || e instanceof ArmorStand
-                                || e instanceof Boat || e instanceof AbstractMinecart)
+                        //?} else
+                        /*&& !(e instanceof Ghast || e instanceof Phantom || e instanceof HappyGhast)*/
+                        && !(e instanceof Shulker || e instanceof ArmorStand)
                         && !lookups.golems().contains(e.getType())
                         && !e.isPassenger()
                         && !living.isSleeping()

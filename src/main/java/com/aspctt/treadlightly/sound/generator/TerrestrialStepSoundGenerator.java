@@ -7,12 +7,19 @@ import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.core.BlockPos;
+//? if >=1.21.11
+/*import net.minecraft.core.component.DataComponents;*/
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+//? if <1.21.11 {
 import net.minecraft.world.item.ArmorItem;
+//?} else
+/*import net.minecraft.world.item.equipment.Equippable;*/
+import net.minecraft.world.item.ItemStack;
 
 import net.neoforged.neoforge.common.NeoForgeMod;
 
@@ -414,10 +421,10 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
     }
 
     protected void playStep(Association association, State eventType) {
-        if (context.settings().footwearEnabled()
-                && entity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ArmorItem boots) {
-            SoundsKey bootSound = lookups().primitives()
-                    .getAssociation(boots.getEquipSound().value(), Substrates.DEFAULT);
+        @Nullable SoundEvent bootEquip = context.settings().footwearEnabled() ? bootEquipSound() : null;
+
+        if (bootEquip != null) {
+            SoundsKey bootSound = lookups().primitives().getAssociation(bootEquip, Substrates.DEFAULT);
 
             if (bootSound.isEmitter()) {
                 // The surface is still heard, but under the boot rather than instead of it.
@@ -428,6 +435,21 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
         }
 
         lookups().acoustics().playStep(association, eventType, Options.EMPTY);
+    }
+
+    /**
+     * The sound the boots make being put on, which is what packs key the boot material on. Armour
+     * stopped being an item class of its own in 1.21.11; the sound now sits on its equippable data.
+     */
+    @Nullable
+    private SoundEvent bootEquipSound() {
+        ItemStack feet = entity.getItemBySlot(EquipmentSlot.FEET);
+        //? if <1.21.11 {
+        return feet.getItem() instanceof ArmorItem boots ? boots.getEquipSound().value() : null;
+        //?} else {
+        /*@Nullable Equippable boots = feet.get(DataComponents.EQUIPPABLE);
+        return boots != null ? boots.equipSound().value() : null;
+        *///?}
     }
 
     private void playSinglefoot(double verticalOffsetAsMinus, State eventType) {

@@ -32,11 +32,11 @@ import com.aspctt.treadlightly.sound.player.EngineSoundInstance;
 public final class VanillaSoundSuppressor {
     /** Player sounds this mod produces itself, wherever they come from. */
     private static final Set<ResourceLocation> REPLACED = Set.of(
-            SoundEvents.PLAYER_SWIM.getLocation(),
-            SoundEvents.PLAYER_SPLASH.getLocation(),
-            SoundEvents.PLAYER_SPLASH_HIGH_SPEED.getLocation(),
-            SoundEvents.PLAYER_BIG_FALL.getLocation(),
-            SoundEvents.PLAYER_SMALL_FALL.getLocation());
+            idOf(SoundEvents.PLAYER_SWIM),
+            idOf(SoundEvents.PLAYER_SPLASH),
+            idOf(SoundEvents.PLAYER_SPLASH_HIGH_SPEED),
+            idOf(SoundEvents.PLAYER_BIG_FALL),
+            idOf(SoundEvents.PLAYER_SMALL_FALL));
 
     /** How far from a sound to look for the player it belongs to. */
     private static final double PLAYER_REACH = 0.5;
@@ -58,7 +58,7 @@ public final class VanillaSoundSuppressor {
             return;
         }
 
-        if (sound.getSource() != SoundSource.PLAYERS && !REPLACED.contains(sound.getLocation())) {
+        if (sound.getSource() != SoundSource.PLAYERS && !REPLACED.contains(idOf(sound))) {
             return;
         }
 
@@ -74,7 +74,7 @@ public final class VanillaSoundSuppressor {
             return;
         }
 
-        if (REPLACED.contains(sound.getLocation()) || isFootstepAt(level, sound)) {
+        if (REPLACED.contains(idOf(sound)) || isFootstepAt(level, sound)) {
             event.setSound(null);
         }
     }
@@ -102,6 +102,22 @@ public final class VanillaSoundSuppressor {
         BlockPos below = BlockPos.containing(sound.getX(), sound.getY() - 1, sound.getZ());
         @Nullable SoundEvent step = level.getBlockState(below).getSoundType(level, below, null).getStepSound();
 
-        return step != null && sound.getLocation().equals(step.getLocation());
+        return step != null && idOf(sound).equals(idOf(step));
+    }
+
+    // SoundEvent became a record in 1.21.11 and SoundInstance renamed its accessor at the same time.
+    // Both are read through these two so the receivers cannot get crossed.
+    private static ResourceLocation idOf(SoundEvent event) {
+        //? if <1.21.11 {
+        return event.getLocation();
+        //?} else
+        /*return event.location();*/
+    }
+
+    private static ResourceLocation idOf(SoundInstance sound) {
+        //? if <1.21.11 {
+        return sound.getLocation();
+        //?} else
+        /*return sound.getIdentifier();*/
     }
 }

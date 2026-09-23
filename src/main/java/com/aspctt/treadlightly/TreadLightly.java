@@ -17,9 +17,16 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+//? if <1.21.11 {
 import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
-import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+//?} else {
+/*import net.minecraft.client.gui.components.debug.DebugScreenEntryStatus;
+import net.minecraft.client.gui.components.debug.DebugScreenProfile;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterDebugEntriesEvent;
+*///?}
+import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
@@ -62,13 +69,29 @@ public class TreadLightly {
 
         engine = new SoundEngine(config);
 
+        // Both run ours after every vanilla listener, so the load order is the same on every version.
+        //? if <1.21.11 {
         modEventBus.addListener(RegisterClientReloadListenersEvent.class, event ->
                 event.registerReloadListener((ResourceManagerReloadListener) this::onResourceReload));
+        //?} else {
+        /*modEventBus.addListener(AddClientReloadListenersEvent.class, event ->
+                event.addListener(id("footsteps"), (ResourceManagerReloadListener) this::onResourceReload));
+        *///?}
 
         NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, event -> onTick());
         NeoForge.EVENT_BUS.addListener(PlaySoundEvent.class, VanillaSoundSuppressor::onPlaySound);
         NeoForge.EVENT_BUS.addListener(RegisterClientCommandsEvent.class, ReportCommand::register);
+
+        // Shown whenever F3 is open, as it always was. From 1.21.11 it can also be switched off in the
+        // debug options like any other entry.
+        //? if <1.21.11 {
         NeoForge.EVENT_BUS.addListener(CustomizeGuiOverlayEvent.DebugText.class, DebugReadout::onDebugText);
+        //?} else {
+        /*modEventBus.addListener(RegisterDebugEntriesEvent.class, event -> {
+            event.register(DebugReadout.ID, new DebugReadout.Entry());
+            event.includeInProfile(DebugReadout.ID, DebugScreenProfile.DEFAULT, DebugScreenEntryStatus.IN_OVERLAY);
+        });
+        *///?}
 
         // Optional: without YetAnotherConfigLib the mod works and only the screen is missing.
         // Registering nothing leaves the Mods list without a config button, which is what

@@ -3,6 +3,8 @@
 
 package com.aspctt.treadlightly.client;
 
+//? if >=1.21.11
+/*import java.util.ArrayList;*/
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -10,13 +12,24 @@ import java.util.stream.Collectors;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.Minecraft;
+//? if >=1.21.11 {
+/*import net.minecraft.client.gui.components.debug.DebugScreenDisplayer;
+import net.minecraft.client.gui.components.debug.DebugScreenEntry;
+*///?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+//? if >=1.21.11
+/*import net.minecraft.resources.ResourceLocation;*/
 import net.minecraft.world.entity.player.Player;
+//? if >=1.21.11
+/*import net.minecraft.world.level.Level;*/
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+//? if >=1.21.11
+/*import net.minecraft.world.level.chunk.LevelChunk;*/
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+//? if <1.21.11
 import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
 
 import com.aspctt.treadlightly.TreadLightly;
@@ -34,11 +47,33 @@ public final class DebugReadout {
     private DebugReadout() {
     }
 
+    //? if <1.21.11 {
     public static void onDebugText(CustomizeGuiOverlayEvent.DebugText event) {
         if (Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
-            appendTo(event.getRight());
+            List<String> right = event.getRight();
+            int start = right.size();
+            appendTo(right);
+
+            if (right.size() > start) {
+                right.add(start, "");
+            }
         }
     }
+    //?} else {
+    /*public static final ResourceLocation ID = TreadLightly.id("footsteps");
+
+    // From 1.21.11 the F3 screen is a list of entries, each switchable in its options. A group keeps
+    // these lines together in one column; plain lines are shared out between the two.
+    public static final class Entry implements DebugScreenEntry {
+        @Override
+        public void display(DebugScreenDisplayer displayer, @Nullable Level level,
+                            @Nullable LevelChunk clientChunk, @Nullable LevelChunk serverChunk) {
+            List<String> lines = new ArrayList<>(3);
+            appendTo(lines);
+            displayer.addToGroup(ID, lines);
+        }
+    }
+    *///?}
 
     /** Separate from the event so the content can be exercised without a render pass. */
     public static void appendTo(List<String> lines) {
@@ -49,8 +84,6 @@ public final class DebugReadout {
         if (engine == null || player == null) {
             return;
         }
-
-        lines.add("");
 
         if (!engine.getLookups().hasData()) {
             lines.add("[Tread Lightly] no pack loaded");

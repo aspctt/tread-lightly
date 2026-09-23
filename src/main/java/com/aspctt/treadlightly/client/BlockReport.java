@@ -117,7 +117,7 @@ public final class BlockReport {
         }
 
         JsonArray tags = new JsonArray();
-        state.getTags().map(TagKey::location).map(String::valueOf).sorted().forEach(tags::add);
+        state.getBlockHolder().tags().map(TagKey::location).map(String::valueOf).sorted().forEach(tags::add);
         if (!tags.isEmpty()) {
             entry.add("tags", tags);
         }
