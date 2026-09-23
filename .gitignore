@@ -8,6 +8,13 @@ build/
 gradletasknamecache
 gradle-app.setting
 
+## Stonecutter
+# versions/<target>/gradle.properties is tracked and declares that target; everything else under a
+# version directory is generated.
+versions/*/build/
+versions/*/.gradle/
+versions/*/src/
+
 # gradle/wrapper/gradle-wrapper.jar is intentionally TRACKED. It is what lets a
 # fresh clone run ./gradlew without Gradle installed, so never add a blanket
 # *.jar rule here.

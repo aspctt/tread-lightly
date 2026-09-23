@@ -1,0 +1,41 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+# LICENSE and COPYING in the root of the JAR carry the full text. Sound packs are unaffected by it: a
+# resource pack is data read at runtime, not a derivative work, so anyone may make and sell packs on
+# any terms they like.
+license = "${mod_license}"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+authors = "aspctt"
+description = '''
+Footsteps worth listening to. Snow crunches, wood creaks, puddles splash, and long grass drags at your legs as you push through it. Every block in the world sounds like what it is.
+'''
+
+[[mixins]]
+config = "${mod_id}.mixins.json"
+
+# The mod does not load on a server at all, so every dependency is only declared for the client.
+[[dependencies.${mod_id}]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.${mod_id}]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+# Draws the config screen. Without it the mod works and the Mods list simply shows no config button.
+[[dependencies.${mod_id}]]
+modId = "yet_another_config_lib_v3"
+type = "optional"
+versionRange = "[${yacl_min_version},)"
+ordering = "NONE"
+side = "CLIENT"
