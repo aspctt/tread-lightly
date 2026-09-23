@@ -92,7 +92,9 @@ dependencies {
 	// Maven Central, and ships them inside its jar for the loader to unpack, so resolving them here would
 	// fail over something we never touch.
 	compileOnly("dev.isxander:yet-another-config-lib:${prop("yacl_version")}") { isTransitive = false }
-	localRuntime("dev.isxander:yet-another-config-lib:${prop("yacl_version")}") { isTransitive = false }
+	if (findProperty("yacl_dev_runtime") != "false") {
+		localRuntime("dev.isxander:yet-another-config-lib:${prop("yacl_version")}") { isTransitive = false }
+	}
 }
 
 // Expand the declared properties into the mod metadata and the mixin config, which is where they live so
