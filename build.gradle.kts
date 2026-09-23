@@ -133,6 +133,18 @@ tasks.withType<JavaCompile>().configureEach {
 	options.compilerArgs.addAll(listOf("-Xlint:deprecation", "-Xlint:unchecked"))
 }
 
+// For tools/check-linkage.py: the exact compile classpath of the NeoForge build this target is configured
+// against, which -Pneo_version can point at another build of the same Minecraft line for one run.
+tasks.register("writeCompileClasspath") {
+	val classpath = configurations.compileClasspath.get()
+	val output = layout.buildDirectory.file("linkage/${prop("neo_version")}.classpath")
+	inputs.files(classpath)
+	outputs.file(output)
+	doLast {
+		output.get().asFile.writeText(classpath.files.joinToString("\n"))
+	}
+}
+
 // IDEA no longer downloads sources/javadoc jars for dependencies on its own.
 idea {
 	module {
