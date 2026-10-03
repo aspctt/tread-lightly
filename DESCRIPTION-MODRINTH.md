@@ -47,3 +47,9 @@ Tread Lightly is licensed under the GNU Lesser General Public License, version 3
 - Modify Tread Lightly itself and distribute it, and that modified version must also be LGPL v3 or later, with source available.
 
 Tread Lightly began as a port of Presence Footsteps, used under the MIT licence it carried at the time. That attribution, along with trademarks and third-party licences, is in [NOTICE](https://github.com/aspctt/tread-lightly/blob/main/NOTICE).
+
+<div align="center">
+
+[![BuyMeACoffee](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/buymeacoffee-singular_vector.svg)](https://buymeacoffee.com/aspctt)
+
+</div>

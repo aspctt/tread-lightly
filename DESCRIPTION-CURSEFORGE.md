@@ -51,3 +51,7 @@
 </ul>
 
 <p>Tread Lightly began as a port of Presence Footsteps, used under the MIT licence it carried at the time. That attribution, along with trademarks and third-party licences, is in <a href="https://github.com/aspctt/tread-lightly/blob/main/NOTICE">NOTICE</a>.</p>
+
+<p style="text-align: center;">
+	<a alt="BuyMeACoffee" href="https://buymeacoffee.com/aspctt"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/buymeacoffee-singular_vector.svg"></a>
+</p>
