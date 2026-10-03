@@ -104,3 +104,7 @@ Tread Lightly began as a port of [Presence Footsteps](https://github.com/Sollace
 * [Presence Footsteps](https://github.com/Sollace/Presence-Footsteps) by Hurricaaane (Ha3) and Sollace - the mod this one grew out of, MIT
 
 Tread Lightly began as a port of Presence Footsteps and is diverging into its own mod. It is built from the Minecraft 1.21.1 line of that project as it stood in November 2025, under the MIT License it carried at the time. Presence Footsteps has since moved to PolyForm Shield 1.0.0 for versions released after June 2026, and nothing from those is used here. The full attribution is in [NOTICE](./NOTICE).
+
+<p align=center>
+	<a alt="BuyMeACoffee" href="https://buymeacoffee.com/aspctt"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/buymeacoffee-singular_vector.svg"></a>
+</p>
