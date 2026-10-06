@@ -1,19 +1,25 @@
-# <p align=center> Tread Lightly </p>
+# <p align=center style="text-align: center;"> Tread Lightly </p>
 
-<div align="center">
+<p align="center" style="text-align: center;">
+	<img alt="Available for" src="https://img.shields.io/badge/Available_for-1.21.1_--_26.3-blue">
+	<img alt="Requires" src="https://img.shields.io/badge/Requires-Nothing-brightgreen">
+	<img alt="License" src="https://img.shields.io/badge/License-LGPL--3.0--or--later-red">
+</p>
 
-![Version](https://img.shields.io/badge/Available_for-1.21.1_--_26.3-blue)
-![Requires](https://img.shields.io/badge/Requires-Nothing-brightgreen)
-![License](https://img.shields.io/badge/License-LGPL--3.0--or--later-red)
+<p align="center" style="text-align: center;">
+	<img alt="Available for NeoForge" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/neoforge_vector.svg">
+	<img alt="Won't support Forge" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/unsupported/forge_vector.svg">
+</p>
 
-![NeoForge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/neoforge_vector.svg)
-![Forge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/unsupported/forge_vector.svg)
+<p align="center" style="text-align: center;">
+	<a alt="Buy Me a Coffee" href="https://buymeacoffee.com/aspctt"><img alt="Buy Me a Coffee" height="40" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/buymeacoffee-singular_vector.svg"></a>
+</p>
 
-[![GitHub](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/github_vector.svg)](https://github.com/aspctt/tread-lightly)
-[![Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/modrinth_vector.svg)](https://modrinth.com/mod/tread-lightly-aspctt)
-[![CurseForge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/curseforge_vector.svg)](https://www.curseforge.com/minecraft/mc-mods/tread-lightly)
-
-</div>
+<p align="center" style="text-align: center;">
+	<a alt="Available on GitHub" href="https://github.com/aspctt/tread-lightly"><img alt="Available on GitHub" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/github_vector.svg"></a>
+	<a alt="Available on Modrinth" href="https://modrinth.com/mod/tread-lightly-aspctt"><img alt="Available on Modrinth" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/modrinth_vector.svg"></a>
+	<a alt="Available on CurseForge" href="https://www.curseforge.com/minecraft/mc-mods/tread-lightly"><img alt="Available on CurseForge" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact-minimal/available/curseforge_vector.svg"></a>
+</p>
 
 Tread Lightly gives every block its own footsteps. Vanilla picks one sound per block and plays it at a fixed rate. Tread Lightly works out what is actually under each foot, in turn, and plays something appropriate for how you are moving over it.
 
@@ -47,9 +53,3 @@ Tread Lightly is licensed under the GNU Lesser General Public License, version 3
 - Modify Tread Lightly itself and distribute it, and that modified version must also be LGPL v3 or later, with source available.
 
 Tread Lightly began as a port of Presence Footsteps, used under the MIT licence it carried at the time. That attribution, along with trademarks and third-party licences, is in [NOTICE](https://github.com/aspctt/tread-lightly/blob/main/NOTICE).
-
-<div align="center">
-
-[![BuyMeACoffee](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/buymeacoffee-singular_vector.svg)](https://buymeacoffee.com/aspctt)
-
-</div>
