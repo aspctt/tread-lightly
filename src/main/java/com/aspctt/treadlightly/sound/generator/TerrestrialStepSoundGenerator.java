@@ -239,7 +239,9 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
             lastStepDistance = distance;
         }
 
-        if (entity.onGround() || entity.isUnderWater() || entity.onClimbable()) {
+        // In water at any depth, not only with the head under. The game's own swim sound is
+        // silenced in favour of this one, so swimming along the surface was left with nothing.
+        if (entity.onGround() || entity.isInWater() || entity.onClimbable()) {
             simulateStep(distance, travelled);
         }
 
@@ -257,7 +259,9 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
 
         if (entity.onClimbable() && !entity.onGround()) {
             strideLength = variator.DISTANCE_LADDER;
-        } else if (!entity.isUnderWater() && Math.abs(yPosition - entity.getY()) > STAIR_THRESHOLD) {
+        } else if (!entity.isInWater() && Math.abs(yPosition - entity.getY()) > STAIR_THRESHOLD) {
+            // Never in water: the height is only sampled on the ground, so a swimmer's is where
+            // they left the shore, and going down from it would take a step every frame.
             if (yPosition < entity.getY()) {
                 strideLength = variator.DISTANCE_STAIR;
                 event = motionTracker.pickState(entity, State.UP, State.UP_RUN);
