@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Swimming along the water's surface making no sound
+- Walking on water with mods that allow it making no sound, or splashing like swimming
 
 ## [1.1.0] - 2026-09-23
 

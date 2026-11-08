@@ -116,6 +116,7 @@ public class FootstepSolver implements Solver {
     }
 
     @Override
+    @SuppressWarnings("deprecation") // BlockState.liquid(), which has no replacement.
     public Association findAssociation(AssociationPool associations, LivingEntity entity,
                                        double verticalOffsetAsMinus, boolean isRightFoot) {
         double rot = Math.toRadians(Mth.wrapDegrees(entity.getYRot()));
@@ -133,7 +134,10 @@ public class FootstepSolver implements Solver {
         if (!(entity instanceof RemotePlayer)) {
             Vec3 velocity = entity.getDeltaMovement();
 
-            if (velocity.lengthSqr() != 0 && Math.abs(velocity.y) < BOUNCE_THRESHOLD) {
+            // Never over a liquid. A mod holding the entity up on the surface may cancel the fall
+            // outright, which leaves no vertical speed on any step and would silence them all.
+            if (velocity.lengthSqr() != 0 && Math.abs(velocity.y) < BOUNCE_THRESHOLD
+                    && !getBlockStateAt(entity, footPos).liquid()) {
                 return Association.NOT_EMITTER;
             }
         }

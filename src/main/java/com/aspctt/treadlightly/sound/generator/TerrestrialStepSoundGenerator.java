@@ -338,7 +338,21 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
 
     /** In water or lava, where the surface underfoot is not what is heard. */
     private boolean hasStoppingConditions() {
-        return entity.isInWater() || entity.isInLava();
+        return (entity.isInWater() || entity.isInLava()) && !isOnFluidSurface();
+    }
+
+    /**
+     * Standing on top of a fluid rather than swimming in it, which the game allows striders on
+     * lava and mods allow players on water.
+     * <p>
+     * The game's own way of doing it holds the entity half sunk, so it also reads as in the
+     * fluid, and without this would splash like a swimmer instead of stepping on the surface.
+     * liquid() rather than a fluid state check, since a waterlogged block on the bottom is
+     * still the bottom.
+     */
+    @SuppressWarnings("deprecation") // BlockState.liquid(), which has no replacement.
+    private boolean isOnFluidSurface() {
+        return entity.onGround() && entity.getBlockStateOn().liquid();
     }
 
     private void simulateAirborne() {
