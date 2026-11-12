@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-11-12
+
 ### Fixed
 
 - Swimming along the water's surface making no sound
@@ -36,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 First release.
 
-[Unreleased]: https://github.com/aspctt/tread-lightly/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/aspctt/tread-lightly/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/aspctt/tread-lightly/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/aspctt/tread-lightly/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/aspctt/tread-lightly/releases/tag/1.0.0
