@@ -178,13 +178,19 @@ public class FootstepSolver implements Solver {
     @SuppressWarnings("deprecation") // BlockState.liquid(), which has no replacement.
     private Association findAssociation(AssociationPool associations, LivingEntity entity, AABB collider,
                                         BlockPos originalFootPos, BlockPos.MutableBlockPos pos) {
-        Association association = findAssociation(associations, entity, pos, collider);
+        Association underfoot = findAssociation(associations, entity, pos, collider);
 
         // A liquid is not accepted yet. Something solid nearby is a better answer than the
         // water you are wading through.
-        if (association.isResult() && !association.state().liquid()) {
-            return association;
+        if (underfoot.isResult() && !underfoot.state().liquid()) {
+            return underfoot;
         }
+
+        // Nothing has an entry for this block, so unless a neighbour does, it plays its own
+        // vanilla step. Kept aside, because this used to return whichever neighbour was tried
+        // last: a corner block you were not on, and air along the edge of a path, which
+        // silenced every step on blocks no pack knows about.
+        @Nullable Association unmapped = underfoot.isSilent() ? null : underfoot;
 
         final double radius = 0.4;
         int[] xValues = {
@@ -205,9 +211,15 @@ public class FootstepSolver implements Solver {
                 }
                 pos.set(x, originalFootPos.getY(), z);
 
-                association = findAssociation(associations, entity, pos, collider);
-                if (association.isResult() && !association.state().liquid()) {
-                    return association;
+                Association neighbour = findAssociation(associations, entity, pos, collider);
+                if (neighbour.isResult() && !neighbour.state().liquid()) {
+                    return neighbour;
+                }
+
+                // Only a block actually touched, the same test a mapped neighbour has to pass.
+                if (unmapped == null && !neighbour.isSilent()
+                        && checkCollision(entity.level(), neighbour.state(), neighbour.pos(), collider)) {
+                    unmapped = neighbour;
                 }
             }
         }
@@ -220,7 +232,7 @@ public class FootstepSolver implements Solver {
             return Association.of(state, pos.below(), entity, false, sounds, SoundsKey.NON_EMITTER, SoundsKey.NON_EMITTER);
         }
 
-        return association;
+        return unmapped == null ? Association.NOT_EMITTER : unmapped;
     }
 
     /**

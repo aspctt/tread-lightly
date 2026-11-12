@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Swimming along the water's surface making no sound
 - Walking on water with mods that allow it making no sound, or splashing like swimming
+- Blocks without a sound map entry, like sulfur, going silent near edges or sounding like the block beside them
 
 ## [1.1.0] - 2026-09-23
 
