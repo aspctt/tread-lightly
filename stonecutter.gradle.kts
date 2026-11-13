@@ -1,3 +1,5 @@
+import me.modmuss50.mpp.PublishModTask
+
 plugins {
 	id("dev.kikugie.stonecutter")
 	// Versioned here and applied bare in build.gradle.kts, so every subproject shares this one copy of the
@@ -88,6 +90,14 @@ val releaseTokens = listOf("MODRINTH_TOKEN", "CURSEFORGE_TOKEN", "GITHUB_TOKEN")
 val isReleaseDryRun: Provider<Boolean> = releaseTokens
 	.map { name -> providers.environmentVariable(name).map { it.isBlank() }.orElse(true) }
 	.reduce { isMissing, isOtherMissing -> isMissing.zip(isOtherMissing) { first, second -> first || second } }
+
+// The configuration cache would store the tokens the publish tasks read, encrypted, under .gradle in this
+// folder. A build that publishes skips the cache instead, so the tokens are never written to disk.
+allprojects {
+	tasks.withType<PublishModTask>().configureEach {
+		notCompatibleWithConfigurationCache("Keeps the publishing tokens out of the configuration cache.")
+	}
+}
 
 // A link reference at the foot of CHANGELOG.md, such as "[1.1.1]: https://...", which ends the last section
 val changelogLinkReference = Regex("""^\[[^\]]+]: .*""")

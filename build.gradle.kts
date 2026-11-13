@@ -160,7 +160,9 @@ tasks.withType<JavaCompile>().configureEach {
 // For tools/check-linkage.py: the exact compile classpath of the NeoForge build this target is configured
 // against, which -Pneo_version can point at another build of the same Minecraft line for one run.
 tasks.register("writeCompileClasspath") {
-	val classpath = configurations.compileClasspath.get()
+	// A plain file collection over the configuration, since the configuration cache cannot store a
+	// Configuration itself
+	val classpath = files(configurations.compileClasspath)
 	val output = layout.buildDirectory.file("linkage/${prop("neo_version")}.classpath")
 	inputs.files(classpath)
 	outputs.file(output)
