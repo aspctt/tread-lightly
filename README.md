@@ -93,6 +93,12 @@ python tools/check-linkage.py 26.1 26.1.0.19-beta
 
 Raising a NeoForge minimum in `versions/<target>/gradle.properties` should come with the same check against the new floor, and CI's list of floors in `.github/workflows/build.yml` should match.
 
+### Releasing
+
+`./gradlew publishMods` uploads every target with its sources jar to Modrinth and CurseForge, and creates one GitHub release for the version with the main jars attached, using [mod-publish-plugin](https://modmuss50.github.io/mod-publish-plugin/). Each platform gets the targets one at a time, from the oldest Minecraft version to the newest. The notes come from the version's section of `CHANGELOG.md`, and the portals list each jar for the Minecraft versions in `release_minecraft_versions`.
+
+To publish, set `MODRINTH_TOKEN`, a Modrinth personal access token that can create, read and write versions, `CURSEFORGE_TOKEN`, a CurseForge API token, and a `GITHUB_TOKEN` that can write the repository's contents as environment variables, then run `./gradlew publishMods`. With any of the three missing the run is a dry run, which uploads nothing and writes what it would have sent under each project's `build/publishMods`.
+
 ## Licensing
 
 Tread Lightly is licensed under the **GNU Lesser General Public License, version 3 or later**. The full terms are in [LICENSE](./LICENSE), which incorporates [COPYING](./COPYING) by reference. What that means in practice:

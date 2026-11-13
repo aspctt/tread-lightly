@@ -1,7 +1,11 @@
+import me.modmuss50.mpp.ModPublishExtension
+
 plugins {
 	id("java-library")
 	id("net.neoforged.moddev") version "2.0.147"
 	id("idea")
+	// No version: the root project declares it, for the reason given in stonecutter.gradle.kts
+	id("me.modmuss50.mod-publish-plugin")
 }
 
 // This script is the central build for every versioned subproject, so anything that reads a file has to
@@ -162,6 +166,70 @@ tasks.register("writeCompileClasspath") {
 	outputs.file(output)
 	doLast {
 		output.get().asFile.writeText(classpath.files.joinToString("\n"))
+	}
+}
+
+// Releasing: this target's uploads. The root project holds the shared settings, the changelog and the GitHub
+// release these jars are attached to, all in stonecutter.gradle.kts.
+
+// The Minecraft versions this jar is listed for on Modrinth and CurseForge. Spelled out rather than taken
+// from minecraft_version_range, which is a Maven range neither portal can read.
+val releaseMinecraftVersions = prop("release_minecraft_versions").split(",").map { it.trim() }
+
+// "26.1-26.1.2" for a jar covering several versions, which is how the earlier Modrinth releases were named
+val releaseMinecraftLabel = if (releaseMinecraftVersions.size == 1) {
+	releaseMinecraftVersions.single()
+} else {
+	"${releaseMinecraftVersions.first()}-${releaseMinecraftVersions.last()}"
+}
+
+val rootPublishMods = rootProject.the<ModPublishExtension>()
+
+publishMods {
+	// A local, so the changelog lambda below captures a string rather than the whole build script
+	val modVersion = prop("mod_version")
+
+	file = tasks.jar.flatMap { it.archiveFile }
+	// The portals show no release title above the notes, so they get the version as a heading
+	changelog = rootPublishMods.changelog.map { "## $modVersion\n\n$it" }
+	type = STABLE
+	version = project.version.toString()
+	modLoaders.add("neoforge")
+	dryRun = rootPublishMods.dryRun
+
+	modrinth {
+		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+		projectId = "EZLEVAhb"
+		displayName = "${prop("mod_name")} $modVersion for NeoForge $releaseMinecraftLabel"
+		minecraftVersions.addAll(releaseMinecraftVersions)
+		additionalFile(tasks.named("sourcesJar")) {
+			type = SOURCES_JAR
+		}
+		optional("yacl")
+	}
+
+	curseforge {
+		accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+		projectId = "1680944"
+		// Titled like the jar without its base name, such as "1.1.1+26.3-neoforge", as the earlier files were
+		displayName = "${project.version}-neoforge"
+		minecraftVersions.addAll(releaseMinecraftVersions)
+		// Client only, like the project: a dedicated server never loads the mod
+		client = true
+		server = false
+		changelogType = "markdown"
+		optional("yacl")
+		// CurseForge files an additional file under the main one it was uploaded with
+		additionalFile(tasks.named("sourcesJar")) {
+			name = "${project.version}-neoforge-sources"
+		}
+	}
+
+	// Only the main jar goes on GitHub, as with the earlier releases. The root project orders these
+	// uploads from the oldest Minecraft version to the newest.
+	github {
+		accessToken = providers.environmentVariable("GITHUB_TOKEN")
+		parent(rootProject.tasks.named("publishGithub"))
 	}
 }
 
