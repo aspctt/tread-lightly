@@ -229,9 +229,16 @@ publishMods {
 
 	// Only the main jar goes on GitHub, as with the earlier releases. The root project orders these
 	// uploads from the oldest Minecraft version to the newest.
-	github {
+	val githubPlatform = github {
 		accessToken = providers.environmentVariable("GITHUB_TOKEN")
-		parent(rootProject.tasks.named("publishGithub"))
+	}
+
+	// parent() attaches this jar to the root project's release. It creates the root's GitHub task on the
+	// spot, and that task fixes its dry run flag as it is created, which reads all three tokens. Called while
+	// configuring, it made the tokens inputs of every build's configuration cache, so it waits until this
+	// target's own GitHub task is created, which only a build that publishes does.
+	tasks.named("publishGithub") {
+		githubPlatform.get().parent(rootProject.tasks.named("publishGithub"))
 	}
 }
 
