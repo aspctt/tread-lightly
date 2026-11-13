@@ -111,13 +111,13 @@ public final class VanillaSoundSuppressor {
         //? if <1.21.11 {
         return event.getLocation();
         //?} else
-        /*return event.location();*/
+        //return event.location();
     }
 
     private static ResourceLocation idOf(SoundInstance sound) {
         //? if <1.21.11 {
         return sound.getLocation();
         //?} else
-        /*return sound.getIdentifier();*/
+        //return sound.getIdentifier();
     }
 }

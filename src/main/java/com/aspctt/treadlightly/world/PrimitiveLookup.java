@@ -42,7 +42,7 @@ public class PrimitiveLookup extends AbstractSubstrateLookup<SoundEvent> {
         //? if <1.21.11 {
         return key.getLocation();
         //?} else
-        /*return key.location();*/
+        //return key.location();
     }
 
     public static String getSubstrate(SoundType type) {

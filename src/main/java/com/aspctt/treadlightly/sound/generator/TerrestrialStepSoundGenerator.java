@@ -8,11 +8,11 @@ import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.core.BlockPos;
 //? if >=1.21.11
-/*import net.minecraft.core.component.DataComponents;*/
+//import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 //? if >=26.1 && <26.2
-/*import net.minecraft.tags.FluidTags;*/
+//import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +20,7 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 //? if <1.21.11 {
 import net.minecraft.world.item.ArmorItem;
 //?} else
-/*import net.minecraft.world.item.equipment.Equippable;*/
+//import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.item.ItemStack;
 
 import net.neoforged.neoforge.common.NeoForgeMod;

@@ -4,7 +4,7 @@
 package com.aspctt.treadlightly.client;
 
 //? if >=1.21.11
-/*import java.util.ArrayList;*/
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,14 +19,14 @@ import net.minecraft.client.gui.components.debug.DebugScreenEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 //? if >=1.21.11
-/*import net.minecraft.resources.ResourceLocation;*/
+//import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 //? if >=1.21.11
-/*import net.minecraft.world.level.Level;*/
+//import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >=1.21.11
-/*import net.minecraft.world.level.chunk.LevelChunk;*/
+//import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 //? if <1.21.11

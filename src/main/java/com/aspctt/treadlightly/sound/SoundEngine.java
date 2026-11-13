@@ -183,7 +183,7 @@ public class SoundEngine implements PlaybackSource {
                         //? if <1.21.11 {
                         && !(e instanceof FlyingMob)
                         //?} else
-                        /*&& !(e instanceof Ghast || e instanceof Phantom || e instanceof HappyGhast)*/
+                        //&& !(e instanceof Ghast || e instanceof Phantom || e instanceof HappyGhast)
                         && !(e instanceof Shulker || e instanceof ArmorStand)
                         && !lookups.golems().contains(e.getType())
                         && !e.isPassenger()

@@ -71,7 +71,7 @@ public final class ReportCommand {
                                         //? if <1.21.11 {
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file.toString()))
                                         //?} else
-                                        /*.withClickEvent(new ClickEvent.OpenFile(file.toString()))*/
+                                        //.withClickEvent(new ClickEvent.OpenFile(file.toString()))
                                         .withUnderlined(true)),
                         report.get("blocks_with_nothing_mapped").getAsInt(),
                         report.get("blocks_in_game").getAsInt()

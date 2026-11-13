@@ -203,7 +203,7 @@ public final class AssociationPool {
                 //? if <1.21.11 {
                 e -> !e.canBeCollidedWith() || e.getBoundingBox().maxY < standingOn);
                 //?} else
-                /*e -> !e.canBeCollidedWith(entity) || e.getBoundingBox().maxY < standingOn);*/
+                //e -> !e.canBeCollidedWith(entity) || e.getBoundingBox().maxY < standingOn);
     }
 
     private boolean getForState(BlockState state, String substrate) {
