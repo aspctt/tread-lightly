@@ -1,0 +1,83 @@
+name: Release
+
+# Publishes the version in gradle.properties to Modrinth, CurseForge and GitHub through publishMods. Started
+# by hand from the Actions tab, never by a push: a tag moved with a force push would otherwise publish again.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Show what would be uploaded without uploading anything
+        type: boolean
+        default: false
+
+# The GitHub release and its tag are created with the workflow's own token, which needs write access.
+permissions:
+  contents: write
+
+# One release at a time, and never cancelled halfway, since a half-finished run has already uploaded to
+# some platforms and not others.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history so the version's tag can be checked against the commit being built.
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # The release is made on the existing tag, so the jars must be built from the commit it marks.
+      # Without this, a run from a main that has moved on would publish jars the tag does not describe.
+      - name: Check the version's tag marks this commit
+        run: |
+          version=$(grep '^mod_version=' gradle.properties | cut -d= -f2)
+          head=$(git rev-parse HEAD)
+          if ! tagged=$(git rev-parse -q --verify "refs/tags/$version^{commit}"); then
+            echo "::error::Tag $version does not exist. Push it before releasing."
+            exit 1
+          fi
+          if [ "$tagged" != "$head" ]; then
+            echo "::error::Tag $version marks $tagged, but this run is building $head. Run the workflow from the tag, or move the tag."
+            exit 1
+          fi
+
+      # publishMods quietly turns into a dry run when a token is missing. A real run fails here instead,
+      # so a forgotten secret cannot pass for a release.
+      - name: Check the tokens are set
+        if: ${{ !inputs.dry_run }}
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: |
+          for name in MODRINTH_TOKEN CURSEFORGE_TOKEN; do
+            if [ -z "${!name}" ]; then
+              echo "::error::The $name repository secret is not set."
+              exit 1
+            fi
+          done
+
+      # Two toolchains, because 1.21.1 and 1.21.11 build on Java 21 and 26.1 onward on Java 25, as in build.yml.
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: |
+            21
+            25
+
+      # v5 rather than v6, since v6 moved the caching into a proprietary component under Gradle's Terms of
+      # Use. v5 already runs on Node 24.
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      # A dry run passes no tokens, which is what makes publishMods upload nothing.
+      - name: Build and publish
+        env:
+          MODRINTH_TOKEN: ${{ !inputs.dry_run && secrets.MODRINTH_TOKEN || '' }}
+          CURSEFORGE_TOKEN: ${{ !inputs.dry_run && secrets.CURSEFORGE_TOKEN || '' }}
+          GITHUB_TOKEN: ${{ !inputs.dry_run && secrets.GITHUB_TOKEN || '' }}
+        run: ./gradlew buildAll publishMods --stacktrace
