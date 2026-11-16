@@ -1,4 +1,4 @@
-# <p align="center" style="text-align: center;">Tread Lightly</p>
+# <p align="center" style="text-align: center;"><img alt="Banner" src="https://i.ibb.co/wNJQFQKJ/Tread-Lightly-Title.png"></p>
 
 <p align="center" style="text-align: center;"><img alt="Available for" src="https://img.shields.io/badge/Available_for-1.21.1_--_26.3-blue"> <img alt="Requires" src="https://img.shields.io/badge/Requires-Nothing-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-LGPL--3.0--or--later-red"></p>
 
