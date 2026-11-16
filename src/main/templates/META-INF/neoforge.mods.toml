@@ -10,6 +10,9 @@ modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
 authors = "aspctt"
+# Shown in the Mods list. Drawn without blurring, so the pixel art stays sharp when the list resizes it.
+logoFile = "assets/${mod_id}/icon.png"
+logoBlur = false
 description = '''
 Footsteps worth listening to. Snow crunches, wood creaks, puddles splash, and long grass drags at your legs as you push through it. Every block in the world sounds like what it is.
 '''
