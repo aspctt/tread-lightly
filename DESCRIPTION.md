@@ -34,7 +34,7 @@ Tread Lightly runs entirely on your own machine. A dedicated server neither load
 
 [YetAnotherConfigLib](https://modrinth.com/mod/yacl) is optional and only draws the settings screen. Without it Tread Lightly runs on its defaults. YetAnotherConfigLib has no build that loads on 26.3 yet, so 26.3 has no settings screen for now.
 
-On 1.21.1 your steps also sound on the ships of Create Aeronautics and anything else Sable moves.
+[Create Aeronautics](https://modrinth.com/mod/create-aeronautics) and anything else [Sable](https://modrinth.com/mod/sable) moves are supported on 1.21.1.
 
 ### License
 
