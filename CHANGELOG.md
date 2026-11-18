@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-18
+
 ### Added
 
 - An icon in the Mods list
@@ -14,9 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Blocks no sound pack maps, like Vanilla Backport's sulfur, playing far quieter than other footsteps
+- Blocks no sound pack maps, like Vanilla Backport's sulfur or Deeper and Darker's sculk stone, playing far quieter than other footsteps
+- Those same blocks sounding like the block beside them, mostly while sprinting
 - Swimming along the water's surface being barely audible
-- Blocks no sound pack maps, like Deeper and Darker's sculk stone, sounding like the block beside them, mostly while sprinting
 
 ## [1.1.1] - 2026-11-12
 
@@ -49,7 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 First release.
 
-[Unreleased]: https://github.com/aspctt/tread-lightly/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/aspctt/tread-lightly/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/aspctt/tread-lightly/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/aspctt/tread-lightly/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/aspctt/tread-lightly/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/aspctt/tread-lightly/releases/tag/1.0.0
