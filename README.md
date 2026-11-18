@@ -57,6 +57,8 @@ The NeoForge minimum for each is the oldest build that jar has been checked agai
 
 [YetAnotherConfigLib](https://modrinth.com/mod/yacl) is **optional** and only draws the settings screen. Without it Tread Lightly works the same, and the Mods list shows no config button. Its only 26.3 build so far declares that it needs 26.2, so NeoForge will not load it on 26.3. The screen will appear there once a build that accepts 26.3 is out.
 
+On 1.21.1, footsteps also work on the ships of [Create Aeronautics](https://modrinth.com/mod/create-aeronautics) and anything else [Sable](https://modrinth.com/mod/sable) moves. Nothing extra is needed for that, since Sable brings the part Tread Lightly talks to.
+
 ## Writing a pack
 
 A pack is a resource pack. This `assets/treadlightly/config/blockmap.json` makes moss blocks sound like grass and podzol like dirt with leaves on it:

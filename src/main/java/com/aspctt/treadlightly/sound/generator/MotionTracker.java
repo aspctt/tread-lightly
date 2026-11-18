@@ -3,11 +3,18 @@
 
 package com.aspctt.treadlightly.sound.generator;
 
+import java.util.Objects;
+import java.util.UUID;
+
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.client.player.RemotePlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
+import com.aspctt.treadlightly.compat.SubLevels;
 import com.aspctt.treadlightly.config.Variator;
 import com.aspctt.treadlightly.sound.State;
 import com.aspctt.treadlightly.util.PlayerUtil;
@@ -27,6 +34,8 @@ public class MotionTracker {
     private double lastX;
     private double lastY;
     private double lastZ;
+    /** The sub-level the last position was measured on, or null for the world. */
+    private @Nullable UUID lastFrame;
 
     private double motionX;
     private double motionY;
@@ -81,20 +90,31 @@ public class MotionTracker {
             distanceTraveled = entity.moveDist;
             fallDistance = entity.fallDistance;
         } else {
-            // No velocity is sent for anyone else, so it is inferred from where they were.
-            motionX = entity.getX() - lastX;
-            lastX = entity.getX();
+            // No velocity is sent for anyone else, so it is inferred from where they were. On a
+            // ship that is measured on the ship, or standing still on a moving one reads as
+            // walking. Stepping on or off one jumps between frames, so that tick starts over.
+            Vec3 position = SubLevels.toFrame(entity, entity.position());
+            @Nullable UUID frame = SubLevels.frameOf(entity);
+            if (!Objects.equals(frame, lastFrame)) {
+                lastFrame = frame;
+                lastX = position.x;
+                lastY = position.y;
+                lastZ = position.z;
+            }
 
-            motionY = entity.getY() - lastY;
+            motionX = position.x - lastX;
+            lastX = position.x;
+
+            motionY = position.y - lastY;
             if (entity.onGround()) {
                 // Standing on the ground still accrues downward velocity that is cancelled on
                 // the next tick. Adding it back leaves a still entity reading as still.
                 motionY += GRAVITY_PER_TICK;
             }
-            lastY = entity.getY();
+            lastY = position.y;
 
-            motionZ = entity.getZ() - lastZ;
-            lastZ = entity.getZ();
+            motionZ = position.z - lastZ;
+            lastZ = position.z;
         }
 
         if (entity instanceof RemotePlayer other) {

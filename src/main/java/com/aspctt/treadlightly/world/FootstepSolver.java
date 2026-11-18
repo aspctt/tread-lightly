@@ -22,6 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import com.aspctt.treadlightly.compat.ContraptionCollidable;
+import com.aspctt.treadlightly.compat.SubLevels;
 import com.aspctt.treadlightly.sound.AcousticVolumes;
 import com.aspctt.treadlightly.util.PlayerUtil;
 
@@ -71,6 +72,11 @@ public class FootstepSolver implements Solver {
 
     private AABB getCollider(LivingEntity entity) {
         AABB collider = entity.getBoundingBox();
+
+        // On a ship the box follows the feet into its plot. Its turn is ignored, which the margins
+        // below cover for anything as narrow as a player.
+        Vec3 centre = collider.getCenter();
+        collider = collider.move(SubLevels.toFrame(entity, centre).subtract(centre));
 
         // Dropped to the bottom of the block so a carpet resting on a fence is still detected.
         collider = collider.move(0, -(collider.minY - Math.floor(collider.minY)), 0);
@@ -124,11 +130,13 @@ public class FootstepSolver implements Solver {
 
         float feetDistanceToCenter = FOOT_OFFSET * (isRightFoot ? -1 : 1) * PlayerUtil.getScale(entity);
 
-        BlockPos footPos = BlockPos.containing(
+        // Placed in the world first and then moved onto the ship, if there is one, so the foot
+        // lands where it should however the ship has turned.
+        BlockPos footPos = BlockPos.containing(SubLevels.toFrame(entity, new Vec3(
             position.x + Math.cos(rot) * feetDistanceToCenter,
             entity.getBoundingBox().min(Axis.Y) - TRAP_DOOR_OFFSET - verticalOffsetAsMinus,
             position.z + Math.sin(rot) * feetDistanceToCenter
-        );
+        )));
 
         // Remote players have no reliable velocity, so this test would reject all their steps.
         if (!(entity instanceof RemotePlayer)) {

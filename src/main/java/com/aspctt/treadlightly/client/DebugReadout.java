@@ -34,6 +34,7 @@ import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent;
 
 import com.aspctt.treadlightly.TreadLightly;
 import com.aspctt.treadlightly.api.DerivedBlock;
+import com.aspctt.treadlightly.compat.SubLevels;
 import com.aspctt.treadlightly.sound.SoundEngine;
 import com.aspctt.treadlightly.world.Lookups;
 import com.aspctt.treadlightly.world.PrimitiveLookup;
@@ -92,7 +93,8 @@ public final class DebugReadout {
 
         lines.add("[Tread Lightly]");
 
-        BlockPos underfoot = player.blockPosition().below();
+        // On a ship, the deck rather than the air it is drawn in.
+        BlockPos underfoot = BlockPos.containing(SubLevels.toFrame(player, player.position())).below();
         lines.add("underfoot: " + describe(engine.getLookups(), player, underfoot));
 
         if (client.hitResult instanceof BlockHitResult hit && hit.getType() == HitResult.Type.BLOCK) {

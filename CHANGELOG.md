@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - An icon in the Mods list
+- Footsteps on Create Aeronautics ships and anything else Sable moves, on 1.21.1
 
 ### Fixed
 

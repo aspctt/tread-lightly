@@ -49,6 +49,10 @@ repositories {
 		name = "Xander Maven"
 		content { includeGroup("dev.isxander") }
 	}
+	maven("https://maven.ryanhcode.dev/releases") {
+		name = "RyanHCode Maven"
+		content { includeGroup("dev.ryanhcode.sable-companion") }
+	}
 }
 
 // Mojang ships Java 21 to end users through 1.21.11, and Java 25 from 26.1.
@@ -98,6 +102,12 @@ dependencies {
 	compileOnly("dev.isxander:yet-another-config-lib:${prop("yacl_version")}") { isTransitive = false }
 	if (findProperty("yacl_dev_runtime") != "false") {
 		localRuntime("dev.isxander:yet-another-config-lib:${prop("yacl_version")}") { isTransitive = false }
+	}
+
+	// Compiled against only, and only where Sable exists. Sable bundles Companion, so it is always
+	// there when Sable is, and nothing of it goes in this jar.
+	if (project.hasProperty("sable_companion_version")) {
+		compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${prop("minecraft_version")}:${prop("sable_companion_version")}") { isTransitive = false }
 	}
 }
 
