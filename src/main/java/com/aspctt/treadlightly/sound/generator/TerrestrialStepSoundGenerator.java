@@ -58,6 +58,13 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
     /** Gap between checks for plants brushing the legs, in milliseconds. */
     private static final long BRUSH_INTERVAL = 100;
 
+    /**
+     * Speed in blocks per tick at which swimming is at full volume. Swimming along the surface
+     * settles at about 0.08 and sprint swimming at about 0.18, so this puts surface strokes level
+     * with an ordinary footstep and sprinting above it.
+     */
+    private static final float FULL_VOLUME_SWIM_SPEED = 0.25F;
+
     protected final LivingEntity entity;
     protected final StepSoundContext context;
     private final Modifier<TerrestrialStepSoundGenerator> modifier;
@@ -307,7 +314,7 @@ public class TerrestrialStepSoundGenerator implements StepSoundGenerator {
         }
 
         if (hasStoppingConditions()) {
-            float volume = Math.min(1, (float) entity.getDeltaMovement().length() * 0.35F);
+            float volume = Math.min(1, (float) entity.getDeltaMovement().length() / FULL_VOLUME_SWIM_SPEED);
             // NeoForge's fluid type rather than the deprecated tag check, so a modded fluid
             // that behaves like lava is treated like it. The 26.1 jar also has to run on 26.1 and
             // 26.1.1, whose NeoForge has no fluid type check at all, so that band keeps the tag.

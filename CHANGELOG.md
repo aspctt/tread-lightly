@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - An icon in the Mods list
 
+### Fixed
+
+- Blocks no sound pack maps, like Vanilla Backport's sulfur, playing far quieter than other footsteps
+- Swimming along the water's surface being barely audible
+
 ## [1.1.1] - 2026-11-12
 
 ### Fixed

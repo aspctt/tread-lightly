@@ -92,8 +92,12 @@ public class AcousticsPlayer implements AcousticLibrary {
     }
 
     /**
-     * Falls back to the block's own vanilla step sound, quietly, for a block the packs have an
-     * opinion about in some other layer but not this one.
+     * Falls back to the block's own vanilla step sound, for a block no pack maps or one mapped
+     * only in another layer.
+     * <p>
+     * Played at the block's full volume, not the 0.15 the game uses. The game scales all of its
+     * own steps down that far, while acoustics play close to full, so at 0.15 these blocks came
+     * out about 18 dB quieter than the mapped ones around them.
      */
     private void playVanillaStep(Association association, LivingEntity source, Options options) {
         // NeoForge's position-aware overload, so blocks that vary their sound by where they are
@@ -108,7 +112,7 @@ public class AcousticsPlayer implements AcousticLibrary {
 
         soundPlayer.playSound(source,
                 soundType.getStepSound().getLocation().toString(),
-                soundType.getVolume() * 0.15F,
+                soundType.getVolume(),
                 soundType.getPitch(),
                 options
         );
