@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Blocks no sound pack maps, like Vanilla Backport's sulfur, playing far quieter than other footsteps
 - Swimming along the water's surface being barely audible
+- Blocks no sound pack maps, like Deeper and Darker's sculk stone, sounding like the block beside them, mostly while sprinting
 
 ## [1.1.1] - 2026-11-12
 

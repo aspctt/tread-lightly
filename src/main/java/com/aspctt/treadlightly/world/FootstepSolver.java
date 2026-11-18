@@ -194,10 +194,17 @@ public class FootstepSolver implements Solver {
             return underfoot;
         }
 
-        // Nothing has an entry for this block, so unless a neighbour does, it plays its own
-        // vanilla step. Kept aside, because this used to return whichever neighbour was tried
-        // last: a corner block you were not on, and air along the edge of a path, which
-        // silenced every step on blocks no pack knows about.
+        // A block no pack maps still wins when the foot is on it, and plays its own vanilla step.
+        // Searching on first let any mapped block the box reached take over, and sprinting
+        // reaches most of a block, so a modded floor sounded like the grass beside it.
+        if (!underfoot.isSilent() && !underfoot.state().liquid()
+                && checkCollision(entity.level(), underfoot.state(), underfoot.pos(), collider)) {
+            return underfoot;
+        }
+
+        // Not touched, so only kept as a last resort. Without that this returned whichever
+        // neighbour was tried last: a corner block you were not on, or air along the edge of a
+        // path, which silenced every step on blocks no pack knows about.
         @Nullable Association unmapped = underfoot.isSilent() ? null : underfoot;
 
         final double radius = 0.4;
